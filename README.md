@@ -1,6 +1,1 @@
-# Authorization
-
-Securing endpoints and serve them 
-
-### - Security
-### - Api Gateway
+# Policy Management System
