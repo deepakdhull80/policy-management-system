@@ -1,6 +1,6 @@
 # Authorization
 
-## Securing endpoints and serve them 
+Securing endpoints and serve them 
 
 ### - Security
 ### - Api Gateway
