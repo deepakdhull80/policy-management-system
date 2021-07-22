@@ -104,8 +104,8 @@ public class ConsumerServiceImpl implements ConsumerService {
 				check = false;
 			}
 
-			if (businessMaster.getTotalemployees() <= b.getTotalemployees()
-					|| businessMaster.getBusinessage() <= b.getBusinessage()) {
+			if (businessMaster!= null && (businessMaster.getTotalemployees() <= b.getTotalemployees()
+					|| businessMaster.getBusinessage() <= b.getBusinessage())) {
 				
 				List<PropertyDetails> propertyDetails = b.getProperty();
 				for (PropertyDetails p : propertyDetails) {
@@ -149,6 +149,17 @@ public class ConsumerServiceImpl implements ConsumerService {
 			propertObj.setPropertyvalue(propertyValue);
 		}
 		businessDetails.setProperty(propertyDetails);
+		
+		
+		
+		/*
+		 * it should be save through consumer repository, if not then this bussiness is not belong to any consumer
+		 * 
+		 * 
+		 * */ 
+		
+		
+		
 		BusinessDetails bs=businessPropertyRepo.save(businessDetails);
 		return bs;
 	}
