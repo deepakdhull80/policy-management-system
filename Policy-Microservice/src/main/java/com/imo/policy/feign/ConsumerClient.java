@@ -14,6 +14,6 @@ public interface ConsumerClient {
 
 	@GetMapping("/getConsumers/{cid}")
 	public ConsumerDetails viewConsumer(
-			String requestTokenHeader, @PathVariable Long cid)
+			 @PathVariable Long cid)
 			throws ConsumerNotFoundException, AuthorizationException;
 }

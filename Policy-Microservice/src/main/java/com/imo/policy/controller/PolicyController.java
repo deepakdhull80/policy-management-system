@@ -50,9 +50,8 @@ public class PolicyController {
 	@PostMapping("/issuePolicy")
 	public ConsumerDetails issuePolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws Exception {
 
-		String requestTokenHeader = "1L@";
 			Long cid = consumerPolicyRequest.getConsumerid();
-			ConsumerDetails consumerDetails = consumerClient.viewConsumer(requestTokenHeader, cid);
+			ConsumerDetails consumerDetails = consumerClient.viewConsumer(cid);
 			if (!policyService.checkPolicy(consumerDetails)) {
 				throw new NotEligibleException("Not Eligible");
 			}
