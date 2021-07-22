@@ -1,0 +1,37 @@
+package com.imo.authorization;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+
+import com.imo.authorization.repository.UserRepository;
+
+@SpringBootApplication
+@EnableEurekaClient
+@EnableZuulProxy
+public class AuthorizationApplication {
+
+	private static Logger LOGGER = LoggerFactory.getLogger(AuthorizationApplication.class);
+	
+	@Autowired
+	private static UserRepository userRepository;
+	
+	public static void main(String[] args) {
+		LOGGER.info("---------Authorization / Api Gateway Service Starts. ----------");
+		
+		SpringApplication.run(AuthorizationApplication.class, args);
+		
+		System.out.println("hello");
+		
+		
+		
+	}
+	
+	
+
+}

@@ -1,0 +1,5 @@
+package com.imo.authorization.model;
+
+public class User {
+
+}

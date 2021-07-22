@@ -1,0 +1,5 @@
+package com.imo.authorization.exception;
+
+public class GlobalException {
+
+}
