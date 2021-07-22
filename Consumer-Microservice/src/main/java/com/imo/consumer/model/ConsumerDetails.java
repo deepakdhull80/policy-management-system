@@ -65,10 +65,6 @@ public class ConsumerDetails {
 	@Column(name = "Agent_Name")
 	private String agentname;
 
-	@NotNull
-	@Column(name = "Agent_ID")
-	private Long agentid;
-
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "consumer_id")
 	private List<BusinessDetails> business;
@@ -76,8 +72,7 @@ public class ConsumerDetails {
 	@Override
 	public String toString() {
 		return "ConsumerDetails [id=" + id + ", name=" + name + ", dob=" + dob + ", pandetails=" + pandetails
-				+ ", email=" + email + ", phone=" + phone + ", agentname=" + agentname + ", agentid=" + agentid
-				+ ", business=" + business + "]";
+				+ ", email=" + email + ", phone=" + phone + ", agentname=" + agentname + ", business=" + business + "]";
 	}
 	
 	

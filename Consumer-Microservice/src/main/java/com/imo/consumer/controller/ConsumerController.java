@@ -32,19 +32,19 @@ public class ConsumerController {
 	@Autowired
 	private ConsumerService consumerService;
 
-	@Autowired
-	private AuthClient authClient;
 
 	@PostMapping("/consumers")
-	public ResponseEntity<ServiceResponse<ConsumerDetails>> createConsumer(@RequestBody ConsumerDetails consumerDetails)
+	public ResponseEntity<ServiceResponse<ConsumerDetails>> createConsumer(@RequestBody ConsumerDetails consumerDetails,@RequestHeader("username") String username)
 			throws Exception {
 
-		System.out.println(consumerDetails);
-
+		
 		if (!consumerService.checkEligibility(consumerDetails)) {
 			throw new NotEligibleException("Not Eligible");
 		}
+		consumerDetails.setAgentname(username);
+		
 		ConsumerDetails consumer = consumerService.saveConsumer(consumerDetails);
+		
 		return new ResponseHandlers<ConsumerDetails>().defaultResponse(consumer, "Consumer Added", HttpStatus.CREATED);
 	}
 
@@ -57,7 +57,6 @@ public class ConsumerController {
 		}
 		ConsumerDetails consumer = consumerService.findConsumerById(consumer_id);
 
-		consumer.setAgentid(consumerDetails.getAgentid());
 		consumer.setAgentname(consumerDetails.getAgentname());
 		consumer.setDob(consumerDetails.getDob());
 		consumer.setEmail(consumerDetails.getEmail());
@@ -116,16 +115,16 @@ public class ConsumerController {
 	}
 
 	@GetMapping("/getallconsumers")
-	public List<ConsumerDetails> viewAllConsumer() throws AuthorizationException {
+	public List<ConsumerDetails> viewAllConsumer(@RequestHeader("username") String username) throws AuthorizationException {
 
-		List<ConsumerDetails> list = consumerService.findAllConsumers();
+		List<ConsumerDetails> list = consumerService.findAllConsumers(username);
 		return list;
 
 	}
 
-	@PostMapping(value = "createBusinessProperty")
-	public ResponseEntity<BusinessDetails> createBusinessProperty(@RequestBody BusinessDetails businessDetails) {
-		BusinessDetails bs = consumerService.saveBusinessProperty(businessDetails);
+	@PostMapping(value = "createBusinessProperty/{cid}")
+	public ResponseEntity<BusinessDetails> createBusinessProperty(@PathVariable Long cid,@RequestBody BusinessDetails businessDetails) throws ConsumerNotFoundException {
+		BusinessDetails bs = consumerService.saveBusinessProperty(businessDetails,cid);
 		return new ResponseEntity<BusinessDetails>(bs, HttpStatus.OK);
 
 	}

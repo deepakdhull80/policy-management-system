@@ -32,12 +32,26 @@ public class ConsumerMicroserviceApplication implements ApplicationRunner{
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
+		//id businesscategory businesstype totalemployees businessage 
+		
 		BusinessMaster businessMaster = new BusinessMaster(1L,"Permissible","Real Estate",45L,2L);
 		
 		busMasterRepository.save(businessMaster);
 		
-		PropertyMaster propertyMaster = new PropertyMaster(1L,"owned", "kk", "apartment", 12L);
+		businessMaster = new BusinessMaster(2L,"Permissible","Institute",20L,2L);
 		
+		busMasterRepository.save(businessMaster);
+		
+		//id insurancetype propertytype buildingtype buildingage
+		
+		
+		PropertyMaster propertyMaster = new PropertyMaster(1L,"property", "private", "institute", 12L);
+		
+		prRepository.save(propertyMaster);
+		
+		propertyMaster = new PropertyMaster(2L,"property", "private", "property", 5L);
+		
+		prRepository.save(propertyMaster);
 		
 	}
 

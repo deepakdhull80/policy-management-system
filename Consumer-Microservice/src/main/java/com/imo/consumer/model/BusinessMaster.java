@@ -23,6 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BusinessMaster {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="ID")

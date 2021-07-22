@@ -39,7 +39,6 @@ public class PropertyMaster {
 	private String propertytype;
 
 	@NotBlank
-	@Size(max = 7)
 	@Column(name = "Building_Type")
 	private String buildingtype;
 

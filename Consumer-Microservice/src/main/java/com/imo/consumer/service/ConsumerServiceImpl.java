@@ -2,6 +2,7 @@ package com.imo.consumer.service;
 
 import java.util.List;
 //import java.util.Optional;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,9 +84,10 @@ public class ConsumerServiceImpl implements ConsumerService {
 	}
 
 	@Override
-	public List<ConsumerDetails> findAllConsumers() {
+	public List<ConsumerDetails> findAllConsumers(String agentName) {
 		// TODO Auto-generated method stub
-		List<ConsumerDetails> con = consumerRepository.findAll();
+		
+		List<ConsumerDetails> con = consumerRepository.findByAgentname(agentName);
 		return con;
 	}
 
@@ -101,18 +103,18 @@ public class ConsumerServiceImpl implements ConsumerService {
 			BusinessMaster businessMaster = businessMasterRepository
 					.findByBusinesscategoryAndBusinesstype(b.getBusinesscategory(), b.getBusinesstype());
 			if (businessMaster == null) {
-				check = false;
+				return false;
 			}
 
 			if (businessMaster!= null && (businessMaster.getTotalemployees() <= b.getTotalemployees()
-					|| businessMaster.getBusinessage() <= b.getBusinessage())) {
+					&& businessMaster.getBusinessage() <= b.getBusinessage())) {
 				
 				List<PropertyDetails> propertyDetails = b.getProperty();
 				for (PropertyDetails p : propertyDetails) {
 					PropertyMaster propertyMaster = propertyMasterRepository
 							.findByBuildingtypeAndPropertytype(p.getBuildingtype(), p.getPropertytype());
-					if(propertyMaster == null) {
-						check =false;
+					if(propertyMaster == null && propertyMaster.getBuildingage()> p.getBuildingage()) {
+						return false;
 					}
 					check = true;
 				}
@@ -142,7 +144,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 	}
 	
 	@Override
-	public BusinessDetails saveBusinessProperty(BusinessDetails businessDetails) {
+	public BusinessDetails saveBusinessProperty(BusinessDetails businessDetails,Long cid) throws ConsumerNotFoundException {
 		List<PropertyDetails> propertyDetails=businessDetails.getProperty();
 		for(PropertyDetails propertObj:propertyDetails) {
 			long propertyValue=calPropertyValue(propertObj.getCostoftheasset(), propertObj.getSalvagevalue(),propertObj.getUsefullifeoftheAsset());
@@ -158,10 +160,16 @@ public class ConsumerServiceImpl implements ConsumerService {
 		 * 
 		 * */ 
 		
+		Optional<ConsumerDetails> conOptional =consumerRepository.findById(cid);
+		if(conOptional.isEmpty()) {
+			throw new ConsumerNotFoundException("Consumer Not Found");
+		}
+		conOptional.get().getBusiness().add(businessDetails);
 		
+		ConsumerDetails result =  consumerRepository.save(conOptional.get());
 		
-		BusinessDetails bs=businessPropertyRepo.save(businessDetails);
-		return bs;
+		return result.getBusiness().get(result.getBusiness().size()-1);
+		
 	}
 
 }

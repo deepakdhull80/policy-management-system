@@ -40,7 +40,6 @@ public class PropertyDetails {
 	private String buildingsqft;
 
 	@NotBlank
-	@Size(max = 7)
 	@Column(name = "Building_Type")
 	private String buildingtype;
 
