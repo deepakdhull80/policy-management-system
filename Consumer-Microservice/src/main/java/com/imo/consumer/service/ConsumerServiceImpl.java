@@ -97,6 +97,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
 
 		for (BusinessDetails b : businessDetails) {
+			System.out.println(b.getBusinesscategory()+"  "+ b.getBusinesstype());
 			BusinessMaster businessMaster = businessMasterRepository
 					.findByBusinesscategoryAndBusinesstype(b.getBusinesscategory(), b.getBusinesstype());
 			if (businessMaster == null) {

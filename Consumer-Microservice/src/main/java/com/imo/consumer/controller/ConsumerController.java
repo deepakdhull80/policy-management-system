@@ -36,102 +36,97 @@ public class ConsumerController {
 	private AuthClient authClient;
 
 	@PostMapping("/consumers")
-	public ResponseEntity<ServiceResponse<ConsumerDetails>> createConsumer(
-			@RequestHeader String requestTokenHeader,
-			@RequestBody ConsumerDetails consumerDetails) throws Exception {
-			if (!consumerService.checkEligibility(consumerDetails)) {
-				throw new NotEligibleException("Not Eligible");
-			}
-			ConsumerDetails consumer = consumerService.saveConsumer(consumerDetails);
-			return new ResponseHandlers<ConsumerDetails>().defaultResponse(consumer, "Consumer Added",
-					HttpStatus.CREATED);
+	public ResponseEntity<ServiceResponse<ConsumerDetails>> createConsumer(@RequestBody ConsumerDetails consumerDetails)
+			throws Exception {
+
+		System.out.println(consumerDetails);
+
+		if (!consumerService.checkEligibility(consumerDetails)) {
+			throw new NotEligibleException("Not Eligible");
+		}
+		ConsumerDetails consumer = consumerService.saveConsumer(consumerDetails);
+		return new ResponseHandlers<ConsumerDetails>().defaultResponse(consumer, "Consumer Added", HttpStatus.CREATED);
 	}
 
 	@PutMapping("/consumers/{consumer_id}")
-	public ResponseEntity<ServiceResponse<ConsumerDetails>> updateConsumer(
-			@RequestHeader String requestTokenHeader,
-			@PathVariable Long consumer_id, @RequestBody ConsumerDetails consumerDetails)
-			throws NotEligibleException, Exception {
-		
-			if (!consumerService.checkEligibility(consumerDetails)) {
-				throw new NotEligibleException("Not Eligible");
+	public ResponseEntity<ServiceResponse<ConsumerDetails>> updateConsumer(@PathVariable Long consumer_id,
+			@RequestBody ConsumerDetails consumerDetails) throws NotEligibleException, Exception {
+
+		if (!consumerService.checkEligibility(consumerDetails)) {
+			throw new NotEligibleException("Not Eligible");
+		}
+		ConsumerDetails consumer = consumerService.findConsumerById(consumer_id);
+
+		consumer.setAgentid(consumerDetails.getAgentid());
+		consumer.setAgentname(consumerDetails.getAgentname());
+		consumer.setDob(consumerDetails.getDob());
+		consumer.setEmail(consumerDetails.getEmail());
+		consumer.setName(consumerDetails.getName());
+		consumer.setPandetails(consumerDetails.getPandetails());
+		consumer.setPhone(consumerDetails.getPhone());
+
+		List<BusinessDetails> businessDetails = consumer.getBusiness();
+		List<BusinessDetails> business = consumerDetails.getBusiness();
+		List<BusinessDetails> b2 = new ArrayList<>();
+		for (int i = 0; i < business.size(); i++) {
+			BusinessDetails b1 = businessDetails.get(i);
+			BusinessDetails b = business.get(i);
+			Long businessVal = consumerService.calBusinessValue(b.getBusinessturnover(), b.getCapitalinvested());
+			b.setBusinessvalue(businessVal);
+			b.setId(b1.getId());
+			List<PropertyDetails> propertyDetails = b1.getProperty();
+			List<PropertyDetails> property = b.getProperty();
+			List<PropertyDetails> p2 = new ArrayList<>();
+			for (int j = 0; j < property.size(); j++) {
+				PropertyDetails p1 = propertyDetails.get(j);
+				PropertyDetails p = property.get(j);
+				Long propertyVal = consumerService.calPropertyValue(p.getCostoftheasset(), p.getSalvagevalue(),
+						p.getUsefullifeoftheAsset());
+				p.setPropertyvalue(propertyVal);
+				p.setId(p1.getId());
+				p2.add(p);
 			}
-			ConsumerDetails consumer = consumerService.findConsumerById(consumer_id);
+			b2.add(b);
+		}
 
-			consumer.setAgentid(consumerDetails.getAgentid());
-			consumer.setAgentname(consumerDetails.getAgentname());
-			consumer.setDob(consumerDetails.getDob());
-			consumer.setEmail(consumerDetails.getEmail());
-			consumer.setName(consumerDetails.getName());
-			consumer.setPandetails(consumerDetails.getPandetails());
-			consumer.setPhone(consumerDetails.getPhone());
+		consumer.setBusiness(b2);
+		ConsumerDetails con = consumerService.saveConsumer(consumer);
 
-			List<BusinessDetails> businessDetails = consumer.getBusiness();
-			List<BusinessDetails> business = consumerDetails.getBusiness();
-			List<BusinessDetails> b2 = new ArrayList<>();
-			for (int i = 0; i < business.size(); i++) {
-				BusinessDetails b1 = businessDetails.get(i);
-				BusinessDetails b = business.get(i);
-				Long businessVal = consumerService.calBusinessValue(b.getBusinessturnover(), b.getCapitalinvested());
-				b.setBusinessvalue(businessVal);
-				b.setId(b1.getId());
-				List<PropertyDetails> propertyDetails = b1.getProperty();
-				List<PropertyDetails> property = b.getProperty();
-				List<PropertyDetails> p2 = new ArrayList<>();
-				for (int j = 0; j < property.size(); j++) {
-					PropertyDetails p1 = propertyDetails.get(j);
-					PropertyDetails p = property.get(j);
-					Long propertyVal = consumerService.calPropertyValue(p.getCostoftheasset(), p.getSalvagevalue(),
-							p.getUsefullifeoftheAsset());
-					p.setPropertyvalue(propertyVal);
-					p.setId(p1.getId());
-					p2.add(p);
-				}
-				b2.add(b);
-			}
+		return new ResponseHandlers<ConsumerDetails>().defaultResponse(con, "Consumer Updtaed", HttpStatus.OK);
 
-			consumer.setBusiness(b2);
-			ConsumerDetails con = consumerService.saveConsumer(consumer);
-
-			return new ResponseHandlers<ConsumerDetails>().defaultResponse(con, "Consumer Updtaed", HttpStatus.OK);
-		
 	}
 
 	@DeleteMapping("/consumers/{cid}")
-	public ResponseEntity<ConsumerDetails> deleteConsumer(
-			@RequestHeader String requestTokenHeader, @PathVariable Long cid)
+	public ResponseEntity<ConsumerDetails> deleteConsumer(@PathVariable Long cid)
 			throws ConsumerNotFoundException, AuthorizationException {
-		
-			ConsumerDetails con = consumerService.findConsumerById(cid);
-			consumerService.deleteConsumer(con.getId());
-			return new ResponseEntity<ConsumerDetails>(con, HttpStatus.OK);
-		
+
+		ConsumerDetails con = consumerService.findConsumerById(cid);
+		consumerService.deleteConsumer(con.getId());
+		return new ResponseEntity<ConsumerDetails>(con, HttpStatus.OK);
+
 	}
 
 	@GetMapping("/getconsumers/{cid}")
-	public ConsumerDetails viewConsumer(
-			@RequestHeader String requestTokenHeader, @PathVariable Long cid)
+	public ConsumerDetails viewConsumer(@PathVariable Long cid)
 			throws ConsumerNotFoundException, AuthorizationException {
-		
-			ConsumerDetails con = consumerService.findConsumerById(cid);
-			return con;
+
+		ConsumerDetails con = consumerService.findConsumerById(cid);
+		return con;
 
 	}
 
 	@GetMapping("/getallconsumers")
-	public List<ConsumerDetails> viewAllConsumer(
-			@RequestHeader String requestTokenHeader)
-			throws AuthorizationException {
-		
-			List<ConsumerDetails> list = consumerService.findAllConsumers();
-			return list;
-		
+	public List<ConsumerDetails> viewAllConsumer() throws AuthorizationException {
+
+		List<ConsumerDetails> list = consumerService.findAllConsumers();
+		return list;
+
 	}
-	
-	@PostMapping(value="createBusinessProperty")
-	public ResponseEntity<BusinessDetails> createBusinessProperty(@RequestBody BusinessDetails businessDetails){
-		BusinessDetails bs=consumerService.saveBusinessProperty(businessDetails);
-		return new ResponseEntity<BusinessDetails>(bs,HttpStatus.OK);
-		
+
+	@PostMapping(value = "createBusinessProperty")
+	public ResponseEntity<BusinessDetails> createBusinessProperty(@RequestBody BusinessDetails businessDetails) {
+		BusinessDetails bs = consumerService.saveBusinessProperty(businessDetails);
+		return new ResponseEntity<BusinessDetails>(bs, HttpStatus.OK);
+
 	}
 }

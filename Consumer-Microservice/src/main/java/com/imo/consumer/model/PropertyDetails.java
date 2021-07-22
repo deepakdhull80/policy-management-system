@@ -68,5 +68,15 @@ public class PropertyDetails {
 	@NotNull
 	@Column(name = "Salvage_value")
 	private Long salvagevalue;
+
+	@Override
+	public String toString() {
+		return "PropertyDetails [id=" + id + ", propertytype=" + propertytype + ", buildingsqft=" + buildingsqft
+				+ ", buildingtype=" + buildingtype + ", buildingstoreys=" + buildingstoreys + ", buildingage="
+				+ buildingage + ", propertyvalue=" + propertyvalue + ", costoftheasset=" + costoftheasset
+				+ ", usefullifeoftheAsset=" + usefullifeoftheAsset + ", salvagevalue=" + salvagevalue + "]";
+	}
+	
+	
 	
 }

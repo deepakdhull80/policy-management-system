@@ -67,4 +67,13 @@ public class BusinessDetails {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "business_id")
 	private List<PropertyDetails> property;
+
+	@Override
+	public String toString() {
+		return "BusinessDetails [id=" + id + ", businesscategory=" + businesscategory + ", businesstype=" + businesstype
+				+ ", businessturnover=" + businessturnover + ", capitalinvested=" + capitalinvested
+				+ ", totalemployees=" + totalemployees + ", businessvalue=" + businessvalue + ", businessage="
+				+ businessage + ", property=" + property + "]";
+	}
+	
 }
