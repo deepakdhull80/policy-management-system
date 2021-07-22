@@ -1,5 +1,0 @@
-package com.imo.authorization.repository;
-
-public interface UserRepository {
-
-}

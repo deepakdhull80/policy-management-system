@@ -1,5 +1,0 @@
-package com.imo.authorization;
-
-public class SecurityConfig extends Web{
-
-}

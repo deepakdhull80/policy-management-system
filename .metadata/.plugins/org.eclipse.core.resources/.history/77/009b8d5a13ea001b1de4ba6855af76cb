@@ -1,5 +1,0 @@
-package com.imo.authorization.security;
-
-public class JwtTokenFilter {
-
-}
