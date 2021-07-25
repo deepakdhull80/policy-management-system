@@ -1,6 +1,7 @@
 package com.imo.policy.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,14 +34,17 @@ public class PolicyController {
 	
 	@Autowired
 	QuotesClient quotesClient;
-
+	
+	@Autowired
+	AuthClient auth;
+	
 	@Autowired
 	PolicyService policyService;
 	
 	@PostMapping("/createPolicy")
 	public ResponseEntity<PolicyMaster> createPolicy(@RequestBody PolicyMaster policyMaster) throws AuthorizationException{
 			PolicyMaster pol = policyService.savePolicy(policyMaster);
-			return new ResponseEntity<PolicyMaster>(pol,HttpStatus.CREATED);
+			return new ResponseEntity<PolicyMaster>(pol,HttpStatus.OK);
 	}
 
 	@PostMapping("/issuePolicy")
@@ -57,7 +61,8 @@ public class PolicyController {
 	}
 	
 	@GetMapping("/viewPolicy/{cid}/{pid}")
-	public List<ConsumerPolicy> viewPolicyCon(@PathVariable Long cid,@PathVariable Long pid) throws ConsumerNotFoundException, AuthorizationException, PolicyNotFoundException {
+	public List<ConsumerPolicy> viewPolicyCon(@PathVariable Long cid,@PathVariable Long pid,@RequestHeader(name = "username") String username) throws ConsumerNotFoundException, AuthorizationException, PolicyNotFoundException {
+			
 		
 			List<ConsumerPolicy> policyDetails = policyService.viewPolicy(cid,pid);
 			if(policyDetails == null) {

@@ -1,11 +1,14 @@
 package com.imo.policy.feign;
 
+import java.util.Map;
+
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "Authorization-Microservice", url = "http://localhost:8400/auth")
+@FeignClient(name = "authorization", url = "http://localhost:8989/auth")
 public interface AuthClient {
-	@PostMapping("/authorize")
-	public boolean authorizeTheRequest(@RequestHeader(value = "Authorization", required = true) String requestTokenHeader);
+	@GetMapping("/get")
+	public Map<Object,Object> getAuth();
 }

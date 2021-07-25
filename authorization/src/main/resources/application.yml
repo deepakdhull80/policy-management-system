@@ -30,3 +30,5 @@ eureka:
 
 jwt-secret: asdkasdmpkasdnpakwdnp3dn2epnapda231p321
 
+zuul:
+  sensitive-headers:  - 
