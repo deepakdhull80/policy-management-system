@@ -9,11 +9,11 @@ import com.imo.policy.exception.AuthorizationException;
 import com.imo.policy.exception.ConsumerNotFoundException;
 import com.imo.policy.model.ConsumerDetails;
 
-@FeignClient(name = "Consumer-Microservice", url = "http://localhost:8100/consumerservice")
+@FeignClient(name = "consumer-service", url = "http://localhost:8100/")
 public interface ConsumerClient {
 
-	@GetMapping("/getConsumers/{cid}")
+	@GetMapping("/getconsumers/{cid}")
 	public ConsumerDetails viewConsumer(
-			String requestTokenHeader, @PathVariable Long cid)
+			@PathVariable Long cid)
 			throws ConsumerNotFoundException, AuthorizationException;
 }

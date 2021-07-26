@@ -41,8 +41,8 @@ public class PolicyServiceImpl implements PolicyService {
 		for (BusinessDetails b : businessDetails) {
 			List<PropertyDetails> propertyDetails = b.getProperty();
 			for (PropertyDetails p : propertyDetails) {
-				PolicyMaster policyMaster = policyMasterRepository
-						.findByBusinessValueAndPropertyValue(b.getBusinessValue(), p.getPropertyValue());
+				PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
+						b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
 				String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
 						p.getPropertyType());
 				if (policyMaster == null || quotes == null) {
@@ -55,27 +55,32 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ConsumerDetails issuePolicy(ConsumerDetails consumerDetails) {
+	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails) {
 		// TODO Auto-generated method stub
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
+		long cId = consumerDetails.getId();
 		for (BusinessDetails b : businessDetails) {
 			List<PropertyDetails> propertyDetails = b.getProperty();
 			for (PropertyDetails p : propertyDetails) {
-				PolicyMaster policyMaster = policyMasterRepository
-						.findByBusinessValueAndPropertyValue(b.getBusinessValue(), p.getPropertyValue());
+				PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
+						b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
 				String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
 						p.getPropertyType());
+				long bId = b.getId();
 				ConsumerPolicy consumerPolicy = new ConsumerPolicy();
-				consumerPolicy.setAcceptedquote(quotes);
+				consumerPolicy.setAcceptedQuote(quotes);
 				consumerPolicy.setPid(policyMaster.getId());
-				consumerPolicy.setAssured_sum(policyMaster.getAssured_sum());
-				consumerPolicy.setBase_location(policyMaster.getBase_location());
+				consumerPolicy.setAssuredSum(policyMaster.getAssuredSum());
+				consumerPolicy.setBaseLocation(policyMaster.getBaseLocation());
 				consumerPolicy.setBusinessValue(policyMaster.getBusinessValue());
-				consumerPolicy.setConsumer_type(policyMaster.getConsumer_type());
-				consumerPolicy.setProperty_type(policyMaster.getProperty_type());
+				consumerPolicy.setConsumerType(policyMaster.getConsumerType());
+				consumerPolicy.setPropertyType(policyMaster.getPropertyType());
 				consumerPolicy.setPropertyValue(policyMaster.getPropertyValue());
 				consumerPolicy.setTenure(policyMaster.getTenure());
 				consumerPolicy.setType(policyMaster.getTenure());
+				consumerPolicy.setBusinessId(bId);
+				consumerPolicy.setConsumerId(cId);
+				consumerPolicy.setStatus("Initiated");
 				p.setConsumerPolicy(consumerPolicy);
 			}
 			b.setProperty(propertyDetails);
@@ -86,10 +91,12 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public PolicyMaster savePolicy(PolicyMaster policyMaster) {
+	public ConsumerPolicy issuePolicy(long cId, long bId) {
 		// TODO Auto-generated method stub
-		PolicyMaster pol = policyMasterRepository.save(policyMaster);
-		return pol;
+		ConsumerPolicy consumerPolicy = consumerPolicyRepository.findByConsumerIdAndBusinessId(cId, bId);
+		consumerPolicy.setStatus("Issued");
+		consumerPolicyRepository.save(consumerPolicy);
+		return consumerPolicy;
 	}
 
 	@Override
@@ -109,6 +116,13 @@ public class PolicyServiceImpl implements PolicyService {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public PolicyMaster savePolicyMaster(PolicyMaster policyMaster) {
+		// TODO Auto-generated method stub
+		PolicyMaster pol = policyMasterRepository.save(policyMaster);
+		return pol;
 	}
 
 }

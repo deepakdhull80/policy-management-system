@@ -48,7 +48,7 @@ public class ConsumerDetails {
 	@NotBlank
 	@Size(max = 12)
 	@Column(name = "PAN_Details")
-	private String pandetails;
+	private String panDetails;
 
 	@NotBlank
 	@Size(max = 50)
@@ -63,7 +63,7 @@ public class ConsumerDetails {
 	@NotBlank
 	@Size(max = 50)
 	@Column(name = "Agent_Name")
-	private String agentname;
+	private String agentName;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "consumer_id")
@@ -71,8 +71,8 @@ public class ConsumerDetails {
 
 	@Override
 	public String toString() {
-		return "ConsumerDetails [id=" + id + ", name=" + name + ", dob=" + dob + ", pandetails=" + pandetails
-				+ ", email=" + email + ", phone=" + phone + ", agentname=" + agentname + ", business=" + business + "]";
+		return "ConsumerDetails [id=" + id + ", name=" + name + ", dob=" + dob + ", panDetails=" + panDetails
+				+ ", email=" + email + ", phone=" + phone + ", agentName=" + agentName + ", business=" + business + "]";
 	}
 	
 	

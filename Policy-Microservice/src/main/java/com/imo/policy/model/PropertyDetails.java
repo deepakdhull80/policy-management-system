@@ -42,14 +42,14 @@ public class PropertyDetails {
 	private String buildingSqft;
 
 	@NotBlank
-	@Size(max = 7)
+	@Size(max = 30)
 	@Column(name = "Building_Type")
 	private String buildingType;
 
 	@NotBlank
 	@Size(max = 10)
 	@Column(name = "Building_Storeys")
-	private String buildingstoreys;
+	private String buildingStoreys;
 
 	@NotNull
 	@Column(name = "Building_Age")

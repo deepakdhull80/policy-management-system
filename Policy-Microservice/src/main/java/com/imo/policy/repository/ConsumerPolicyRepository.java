@@ -10,4 +10,6 @@ import com.imo.policy.model.ConsumerPolicy;
 @Repository
 public interface ConsumerPolicyRepository extends JpaRepository<ConsumerPolicy,Long> {
 	public Optional<ConsumerPolicy> findByPid(Long pid);
+
+	public ConsumerPolicy findByConsumerIdAndBusinessId(long cId, long bId);
 }

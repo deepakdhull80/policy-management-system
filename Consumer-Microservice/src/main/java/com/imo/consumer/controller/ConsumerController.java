@@ -39,9 +39,7 @@ public class ConsumerController {
 		
 		if (!consumerService.checkEligibility(consumerDetails)) {
 			throw new NotEligibleException("Not Eligible");
-		}
-		
-		
+		}		
 		ConsumerDetails consumer = consumerService.saveConsumer(consumerDetails);
 		
 		return new ResponseHandlers<ConsumerDetails>().defaultResponse(consumer, "Consumer Added", HttpStatus.OK);
@@ -56,11 +54,11 @@ public class ConsumerController {
 		}
 		ConsumerDetails consumer = consumerService.findConsumerById(consumer_id);
 
-		consumer.setAgentname(consumerDetails.getAgentname());
+		consumer.setAgentName(consumerDetails.getAgentName());
 		consumer.setDob(consumerDetails.getDob());
 		consumer.setEmail(consumerDetails.getEmail());
 		consumer.setName(consumerDetails.getName());
-		consumer.setPandetails(consumerDetails.getPandetails());
+		consumer.setPanDetails(consumerDetails.getPanDetails());
 		consumer.setPhone(consumerDetails.getPhone());
 
 		List<BusinessDetails> businessDetails = consumer.getBusiness();
@@ -69,8 +67,8 @@ public class ConsumerController {
 		for (int i = 0; i < business.size(); i++) {
 			BusinessDetails b1 = businessDetails.get(i);
 			BusinessDetails b = business.get(i);
-			Long businessVal = consumerService.calBusinessValue(b.getBusinessturnover(), b.getCapitalinvested());
-			b.setBusinessvalue(businessVal);
+			Long businessVal = consumerService.calBusinessValue(b.getBusinessTurnOver(), b.getCapitalInvested());
+			b.setBusinessValue(businessVal);
 			b.setId(b1.getId());
 			List<PropertyDetails> propertyDetails = b1.getProperty();
 			List<PropertyDetails> property = b.getProperty();
@@ -78,9 +76,9 @@ public class ConsumerController {
 			for (int j = 0; j < property.size(); j++) {
 				PropertyDetails p1 = propertyDetails.get(j);
 				PropertyDetails p = property.get(j);
-				Long propertyVal = consumerService.calPropertyValue(p.getCostoftheasset(), p.getSalvagevalue(),
-						p.getUsefullifeoftheAsset());
-				p.setPropertyvalue(propertyVal);
+				Long propertyVal = consumerService.calPropertyValue(p.getCostOfTheAsset(), p.getSalvageValue(),
+						p.getUsefulLifeOfTheAsset());
+				p.setPropertyValue(propertyVal);
 				p.setId(p1.getId());
 				p2.add(p);
 			}

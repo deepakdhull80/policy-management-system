@@ -32,17 +32,17 @@ public class PolicyMaster {
 	@NotBlank
 	@Size(max = 30)
 	@Column(name = "Property_Type")
-	private String property_type;
+	private String propertyType;
 	
 	@NotBlank
 	@Size(max = 30)
 	@Column(name = "Consumer_Type")
-	private String consumer_type;
+	private String consumerType;
 
 	@NotBlank
 	@Size(max = 40)
 	@Column(name = "Assured_Sum")
-	private String assured_sum;
+	private String assuredSum;
 
 	@NotBlank
 	@Size(max = 30)
@@ -60,7 +60,7 @@ public class PolicyMaster {
 	@NotBlank
 	@Size(max = 30)
 	@Column(name = "Base_Location")
-	private String base_location;
+	private String baseLocation;
 	
 	@NotBlank
 	@Size(max = 30)

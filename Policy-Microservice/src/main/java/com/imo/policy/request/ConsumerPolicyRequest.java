@@ -15,7 +15,9 @@ import lombok.Setter;
 public class ConsumerPolicyRequest {
 
 	@NotNull
-	private Long consumerid;
+	private Long consumerId;
+	
+	private Long businessId;
 	
 	
 }

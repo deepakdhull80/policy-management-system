@@ -14,8 +14,6 @@ public interface ConsumerService {
 
 	ConsumerDetails findConsumerById(Long cid) throws ConsumerNotFoundException;
 
-	List<ConsumerDetails> findAllConsumers(String username);
-
 	Boolean checkEligibility(ConsumerDetails consumerDetails) throws Exception;
 	
 	public Long calBusinessValue(Long businessturnover, Long capitalinvested);
@@ -23,4 +21,6 @@ public interface ConsumerService {
 	public Long calPropertyValue(Long costoftheasset, Long salvagevalue, Long usefullifeoftheAsset);
 	
 	BusinessDetails saveBusinessProperty(BusinessDetails businessDetails, Long cid) throws ConsumerNotFoundException;
+
+	List<ConsumerDetails> findAllConsumers(String username);
 }

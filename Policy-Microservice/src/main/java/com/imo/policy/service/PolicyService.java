@@ -12,10 +12,13 @@ public interface PolicyService {
 
 	Boolean checkPolicy(ConsumerDetails consumerDetails) throws Exception;
 
-	ConsumerDetails issuePolicy(ConsumerDetails consumerDetails);
+	ConsumerDetails savePolicy(ConsumerDetails consumerDetails);
 
-	PolicyMaster savePolicy(PolicyMaster policyMaster);
+//	PolicyMaster savePolicy(long cId, long bId);
+	public PolicyMaster savePolicyMaster(PolicyMaster policyMaster);
 
 	List<ConsumerPolicy> viewPolicy(Long cid, Long pid) throws ConsumerNotFoundException,PolicyNotFoundException;
+
+	ConsumerPolicy issuePolicy(long cId, long bId);
 
 }

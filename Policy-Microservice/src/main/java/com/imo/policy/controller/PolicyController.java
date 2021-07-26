@@ -41,27 +41,39 @@ public class PolicyController {
 	@Autowired
 	PolicyService policyService;
 	
-	@PostMapping("/createPolicy")
-	public ResponseEntity<PolicyMaster> createPolicy(@RequestBody PolicyMaster policyMaster) throws AuthorizationException{
-			PolicyMaster pol = policyService.savePolicy(policyMaster);
-			return new ResponseEntity<PolicyMaster>(pol,HttpStatus.OK);
+	
+	@PostMapping("/savePolicyMaster")
+	public ResponseEntity<PolicyMaster> savePolicyMaster(@RequestBody PolicyMaster policyMaster) throws AuthorizationException{
+		PolicyMaster pol = policyService.savePolicyMaster(policyMaster);
+		return new ResponseEntity<PolicyMaster>(pol,HttpStatus.CREATED);
+}
+	
+	@PostMapping("/issuePolicy")
+	public ResponseEntity<ConsumerPolicy> issuePolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws AuthorizationException{
+//			PolicyMaster pol = policyService.savePolicy(policyMaster);
+			Long cId = consumerPolicyRequest.getConsumerId();
+			Long bId = consumerPolicyRequest.getBusinessId();
+//			ConsumerPolicy consumerDetails = consumerClient.viewConsumer(cId);
+			
+			ConsumerPolicy con = policyService.issuePolicy(cId, bId);
+			return new ResponseEntity<ConsumerPolicy>(con,HttpStatus.CREATED);
 	}
 
-	@PostMapping("/issuePolicy")
-	public ConsumerDetails issuePolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws Exception {
+	@PostMapping("/createPolicy")
+	public ResponseEntity<ConsumerDetails> createPolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws Exception {
 
-		String requestTokenHeader = "1L@";
-			Long cid = consumerPolicyRequest.getConsumerid();
-			ConsumerDetails consumerDetails = consumerClient.viewConsumer(requestTokenHeader, cid);
+			Long cid = consumerPolicyRequest.getConsumerId();
+			ConsumerDetails consumerDetails = consumerClient.viewConsumer(cid);
 			if (!policyService.checkPolicy(consumerDetails)) {
 				throw new NotEligibleException("Not Eligible");
 			}
-			ConsumerDetails con = policyService.issuePolicy(consumerDetails);
-			return con;
+			ConsumerDetails con = policyService.savePolicy(consumerDetails);
+			return new ResponseEntity<ConsumerDetails>(con,HttpStatus.CREATED);
+//			return con;
 	}
 	
 	@GetMapping("/viewPolicy/{cid}/{pid}")
-	public List<ConsumerPolicy> viewPolicyCon(@PathVariable Long cid,@PathVariable Long pid,@RequestHeader(name = "username") String username) throws ConsumerNotFoundException, AuthorizationException, PolicyNotFoundException {
+	public List<ConsumerPolicy> viewPolicyCon(@PathVariable Long cid,@PathVariable Long pid) throws ConsumerNotFoundException, AuthorizationException, PolicyNotFoundException {
 			
 		
 			List<ConsumerPolicy> policyDetails = policyService.viewPolicy(cid,pid);
@@ -69,6 +81,15 @@ public class PolicyController {
 				throw new PolicyNotFoundException("Notfound");
 			}
 			return policyDetails;
+
+	}
+	
+	@GetMapping("/getConsumers/{cid}")
+	public ConsumerDetails getConsumerDetails(@PathVariable Long cid)
+			throws ConsumerNotFoundException, AuthorizationException {
+
+		ConsumerDetails con = consumerClient.viewConsumer(cid);
+		return con;
 
 	}
 	

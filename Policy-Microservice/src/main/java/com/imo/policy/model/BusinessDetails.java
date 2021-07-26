@@ -30,12 +30,12 @@ public class BusinessDetails {
 	@Column(name ="ID")
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	@Size(max = 40)
 	@Column(name = "Business_Category")
 	private String businessCategory;
 
-	@NotBlank
+	@NotNull
 	@Size(max = 40)
 	@Column(name = "Business_Type")
 	private String businessType;

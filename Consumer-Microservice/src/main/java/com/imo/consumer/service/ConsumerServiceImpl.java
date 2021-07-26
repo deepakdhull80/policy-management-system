@@ -38,14 +38,14 @@ public class ConsumerServiceImpl implements ConsumerService {
 		// TODO Auto-generated method stub
 		List<BusinessDetails> business = consumerDetails.getBusiness();
 		for (BusinessDetails b : business) {
-			Long businessValue = calBusinessValue(b.getBusinessturnover(), b.getCapitalinvested());
+			Long businessValue = calBusinessValue(b.getBusinessTurnOver(), b.getCapitalInvested());
 			System.out.println(businessValue);
-			b.setBusinessvalue(businessValue);
+			b.setBusinessValue(businessValue);
 			List<PropertyDetails> property = b.getProperty();
 			for (PropertyDetails p : property) {
-				Long propertyValue = calPropertyValue(p.getCostoftheasset(), p.getSalvagevalue(),
-						p.getUsefullifeoftheAsset());
-				p.setPropertyvalue(propertyValue);
+				Long propertyValue = calPropertyValue(p.getCostOfTheAsset(), p.getSalvageValue(),
+						p.getUsefulLifeOfTheAsset());
+				p.setPropertyValue(propertyValue);
 			}
 			b.setProperty(property);
 		}
@@ -87,7 +87,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 	public List<ConsumerDetails> findAllConsumers(String agentName) {
 		// TODO Auto-generated method stub
 		
-		List<ConsumerDetails> con = consumerRepository.findByAgentname(agentName);
+		List<ConsumerDetails> con = consumerRepository.findByAgentName(agentName);
 		return con;
 	}
 
@@ -99,21 +99,21 @@ public class ConsumerServiceImpl implements ConsumerService {
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
 
 		for (BusinessDetails b : businessDetails) {
-			System.out.println(b.getBusinesscategory()+"  "+ b.getBusinesstype());
+			System.out.println(b.getBusinessCategory()+"  "+ b.getBusinessType());
 			BusinessMaster businessMaster = businessMasterRepository
-					.findByBusinessCategoryAndBusinessType(b.getBusinesscategory(), b.getBusinesstype());
+					.findByBusinessCategoryAndBusinessType(b.getBusinessCategory(), b.getBusinessType());
 			if (businessMaster == null) {
 				return false;
 			}
 
-			if (businessMaster!= null && (businessMaster.getTotalEmployees() <= b.getTotalemployees()
-					&& businessMaster.getBusinessAge() <= b.getBusinessage())) {
+			if (businessMaster!= null && (businessMaster.getTotalEmployees() <= b.getTotalEmployees()
+					&& businessMaster.getBusinessAge() <= b.getBusinessAge())) {
 				
 				List<PropertyDetails> propertyDetails = b.getProperty();
 				for (PropertyDetails p : propertyDetails) {
 					PropertyMaster propertyMaster = propertyMasterRepository
-							.findByBuildingTypeAndPropertyType(p.getBuildingtype(), p.getPropertytype());
-					if(propertyMaster == null && propertyMaster.getBuildingAge()> p.getBuildingage()) {
+							.findByBuildingTypeAndPropertyType(p.getBuildingType(), p.getPropertyType());
+					if(propertyMaster == null && propertyMaster.getBuildingAge()> p.getBuildingAge()) {
 						return false;
 					}
 					check = true;
@@ -147,8 +147,8 @@ public class ConsumerServiceImpl implements ConsumerService {
 	public BusinessDetails saveBusinessProperty(BusinessDetails businessDetails,Long cid) throws ConsumerNotFoundException {
 		List<PropertyDetails> propertyDetails=businessDetails.getProperty();
 		for(PropertyDetails propertObj:propertyDetails) {
-			long propertyValue=calPropertyValue(propertObj.getCostoftheasset(), propertObj.getSalvagevalue(),propertObj.getUsefullifeoftheAsset());
-			propertObj.setPropertyvalue(propertyValue);
+			long propertyValue=calPropertyValue(propertObj.getCostOfTheAsset(), propertObj.getSalvageValue(),propertObj.getUsefulLifeOfTheAsset());
+			propertObj.setPropertyValue(propertyValue);
 		}
 		businessDetails.setProperty(propertyDetails);
 		

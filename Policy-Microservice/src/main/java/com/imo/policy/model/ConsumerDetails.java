@@ -45,7 +45,7 @@ public class ConsumerDetails {
 	@NotBlank
 	@Size(max = 12)
 	@Column(name = "PAN_Details")
-	private String pandetails;
+	private String panDetails;
 
 	@NotBlank
 	@Size(max = 50)
@@ -60,7 +60,7 @@ public class ConsumerDetails {
 	@NotBlank
 	@Size(max = 50)
 	@Column(name = "Agent_Name")
-	private String agentname;
+	private String agentName;
 
 	@NotNull
 	@Column(name = "Agent_ID")

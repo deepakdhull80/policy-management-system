@@ -1,0 +1,101 @@
+localhost:8100/consumer
+
+
+{
+    "name":"xyz",
+    "dob":"12/01/2021",
+    "panDetails":"12334345",
+    "phone":"9876543210",
+    "email":"sada@gmail.com",
+    "agentName":"abc",
+    "business":[
+        {
+           "businessCategory":"Permissible",
+           "businessType":"Institute",
+           "businessTurnOver":12345,
+           "capitalInvested" :56789,
+           "totalEmployees": 1000,
+           "businessValue":0,
+           "businessAge":10,
+           "property":[
+               {
+                   "propertyType":"private",
+                   "buildingSqft":"abc",
+                   "buildingType":"institute",
+                   "buildingStoreys":"abc",
+                   "buildingAge":15,
+                   "propertyValue": 0,
+                   "costOfTheAsset":12345,
+                   "usefulLifeOfTheAsset":54345,
+                   "salvageValue":34543
+               }
+           ]
+
+        }
+        ]
+}
+
+
+
+
+########################################################################################################
+
+POLICY MASTER IS EMPTY!!! SO WE NEED TO ADD SOME DATA TO IT!!!!
+
+localhost:8200/savePolicyMaster
+
+{
+    "id": 123,
+    "propertyType": "private",
+    "consumerType": "Personal",
+    "assuredSum": "150, 00000 INR",
+    "tenure": "123",
+    "businessValue": 13,
+    "propertyValue": 0,
+    "baseLocation": "16551651",
+    "type" : "Personal"
+}
+
+#######################################################################################################
+
+
+Now creating the Policy 
+
+localhost:8200/createPolicy
+
+{
+    "consumerId" : 1
+}
+
+
+#######################################################################################################
+
+Check for Quotes from the Policy Microservice
+
+localhost:8200/getQuotes/2/2/private
+
+#######################################################################################################
+
+Check for Consumers from Policy Microservice
+
+localhost:8200/getConsumers/1
+
+#######################################################################################################
+
+Issue Policy 
+
+localhost:8200/issuePolicy
+
+{
+    "consumerId" : 1,
+    "businessId" : 2
+}
+
+#######################################################################################################
+
+View Of Policy 
+
+localhost:8200/viewPolicy/1/1
+
+#######################################################################################################
+

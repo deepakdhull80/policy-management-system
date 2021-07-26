@@ -32,48 +32,49 @@ public class PropertyDetails {
 	@NotBlank
 	@Size(max = 30)
 	@Column(name = "Property_Type")
-	private String propertytype;
+	private String propertyType;
 
 	@NotBlank
 	@Size(max = 30)
 	@Column(name = "Building_Sqft")
-	private String buildingsqft;
+	private String buildingSqft;
 
 	@NotBlank
+	@Size(max = 30)
 	@Column(name = "Building_Type")
-	private String buildingtype;
+	private String buildingType;
 
 	@NotBlank
 	@Size(max = 10)
 	@Column(name = "Building_Storeys")
-	private String buildingstoreys;
+	private String buildingStoreys;
 
 	@NotNull
 	@Column(name = "Building_Age")
-	private Long buildingage;
+	private Long buildingAge;
 
 	@NotNull
 	@Column(name = "Property_Value")
-	private Long propertyvalue;
+	private Long propertyValue;
 	
 	@NotNull
 	@Column(name = "Cost_of_the_asset")
-	private Long costoftheasset;
+	private Long costOfTheAsset;
 	
 	@NotNull
 	@Column(name = "Useful_Life_of_the_Asset")
-	private Long usefullifeoftheAsset;
+	private Long usefulLifeOfTheAsset;
 
 	@NotNull
 	@Column(name = "Salvage_value")
-	private Long salvagevalue;
+	private Long salvageValue;
 
 	@Override
 	public String toString() {
-		return "PropertyDetails [id=" + id + ", propertytype=" + propertytype + ", buildingsqft=" + buildingsqft
-				+ ", buildingtype=" + buildingtype + ", buildingstoreys=" + buildingstoreys + ", buildingage="
-				+ buildingage + ", propertyvalue=" + propertyvalue + ", costoftheasset=" + costoftheasset
-				+ ", usefullifeoftheAsset=" + usefullifeoftheAsset + ", salvagevalue=" + salvagevalue + "]";
+		return "PropertyDetails [id=" + id + ", propertyType=" + propertyType + ", buildingSqft=" + buildingSqft
+				+ ", buildingType=" + buildingType + ", buildingStoreys=" + buildingStoreys + ", buildingAge="
+				+ buildingAge + ", propertyValue=" + propertyValue + ", costOfTheAsset=" + costOfTheAsset
+				+ ", usefulLifeOfTheAsset=" + usefulLifeOfTheAsset + ", salvageValue=" + salvageValue + "]";
 	}
 	
 	

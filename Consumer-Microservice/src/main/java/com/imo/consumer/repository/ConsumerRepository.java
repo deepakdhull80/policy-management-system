@@ -10,6 +10,6 @@ import com.imo.consumer.model.ConsumerDetails;
 @Repository
 public interface ConsumerRepository extends JpaRepository<ConsumerDetails,Long> {
 
-	List<ConsumerDetails> findByAgentname(String agentName);
+	List<ConsumerDetails> findByAgentName(String agentName);
 
 }

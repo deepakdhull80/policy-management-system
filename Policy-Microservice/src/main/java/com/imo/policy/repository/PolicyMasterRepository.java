@@ -8,4 +8,7 @@ import com.imo.policy.model.PolicyMaster;
 @Repository
 public interface PolicyMasterRepository extends JpaRepository<PolicyMaster,Long>{
 	public PolicyMaster findByBusinessValueAndPropertyValue(Long businessValue,Long propertyValue);
+
+	public PolicyMaster findByBusinessValueAndPropertyValueAndPropertyType(Long businessValue, Long propertyValue,
+			String propertyType);
 }

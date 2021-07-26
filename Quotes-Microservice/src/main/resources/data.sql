@@ -13,7 +13,7 @@ INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes)
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (6,1,2,'Factory Equipment','90,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (7,2,0,'Factory Equipment','90,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (8,2,1,'Factory Equipment','90,000 INR');
-INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (9,2,2,'Factory Equipment','90,000 INR');
+INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (9,2,2,'private','90,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (10,3,3,'Factory Equipment','60,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (11,3,4,'Factory Equipment','60,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (12,3,5,'Factory Equipment','60,000 INR');
@@ -36,3 +36,4 @@ INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes)
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (29,9,10,'Factory Equipment','24,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (30,10,9,'Factory Equipment','24,000 INR');
 INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (31,10,10,'Factory Equipment','24,000 INR');
+INSERT INTO Quotes_Master(ID,Business_Value,Property_Value,Property_Type,Quotes) VALUES (32,13,0,'PRIVATE','150 000 INR');

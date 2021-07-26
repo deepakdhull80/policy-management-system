@@ -37,32 +37,32 @@ public class BusinessDetails {
 	@NotBlank
 	@Size(max = 40)
 	@Column(name = "Business_Category")
-	private String businesscategory;
+	private String businessCategory;
 
 	@NotBlank
 	@Size(max = 40)
 	@Column(name = "Business_Type")
-	private String businesstype;
+	private String businessType;
 
 	@NotNull
 	@Column(name = "Business_Turnover")
-	private Long businessturnover;
+	private Long businessTurnOver;
 
 	@NotNull
 	@Column(name = "Capital_Invested ")
-	private Long capitalinvested;
+	private Long capitalInvested;
 
 	@NotNull
 	@Column(name = "Total_Employees")
-	private Long totalemployees;
+	private Long totalEmployees;
 
 	@NotNull
 	@Column(name = "Business_Value")
-	private Long businessvalue;
+	private Long businessValue;
 
 	@NotNull
 	@Column(name = "Business_Age")
-	private Long businessage;
+	private Long businessAge;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "business_id")
@@ -70,10 +70,10 @@ public class BusinessDetails {
 
 	@Override
 	public String toString() {
-		return "BusinessDetails [id=" + id + ", businesscategory=" + businesscategory + ", businesstype=" + businesstype
-				+ ", businessturnover=" + businessturnover + ", capitalinvested=" + capitalinvested
-				+ ", totalemployees=" + totalemployees + ", businessvalue=" + businessvalue + ", businessage="
-				+ businessage + ", property=" + property + "]";
+		return "BusinessDetails [id=" + id + ", businessCategory=" + businessCategory + ", businessType=" + businessType
+				+ ", businessTurnOver=" + businessTurnOver + ", capitalInvested=" + capitalInvested
+				+ ", totalEmployees=" + totalEmployees + ", businessValue=" + businessValue + ", businessAge="
+				+ businessAge + ", property=" + property + "]";
 	}
 	
 }
