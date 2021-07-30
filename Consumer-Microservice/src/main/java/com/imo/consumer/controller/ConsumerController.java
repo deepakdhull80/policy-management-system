@@ -88,7 +88,7 @@ public class ConsumerController {
 		consumer.setBusiness(b2);
 		ConsumerDetails con = consumerService.saveConsumer(consumer);
 
-		return new ResponseHandlers<ConsumerDetails>().defaultResponse(con, "Consumer Updtaed", HttpStatus.OK);
+		return new ResponseHandlers<ConsumerDetails>().defaultResponse(con, "Consumer Updated", HttpStatus.OK);
 
 	}
 

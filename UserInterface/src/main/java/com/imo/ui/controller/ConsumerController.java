@@ -176,5 +176,48 @@ public class ConsumerController {
 		return "editConsumer";
 	}
 	
+	
+	
+	@PostMapping("/update-consumer")
+	public RedirectView updateConsumer(@ModelAttribute ConsumerDetails consumerDetails,
+			HttpServletRequest request, RedirectAttributes attr) throws JsonProcessingException {
+
+		String token = (String) request.getSession().getAttribute("token");
+
+		String user = (String) request.getSession().getAttribute("user");
+
+		RedirectView view;
+
+		if (token == null || user == null || !loginService.isValid(token)) {
+			view = new RedirectView("/login", true);
+
+			attr.addFlashAttribute("msg", "Session Expired");
+
+			return view;
+
+		}
+		
+		
+		ConsumerDetails consumer = consumerService.updateConsumer(consumerDetails, token);
+		
+		System.out.println("---------------------------------------------------");
+		System.out.println(consumer);
+		System.out.println("---------------------------------------------------");
+		
+		view = new RedirectView("/consumerDetails", true);
+		if (consumer == null) {
+
+			attr.addFlashAttribute("msg", "New Details are not eligibles");
+			return view;
+		}
+		
+		attr.addFlashAttribute("msg", "Updated Successfully");
+		
+		return view;
+	}
+	
+	
+	
+	
 
 }

@@ -113,7 +113,14 @@ public class ConsumerServiceImpl implements ConsumerService {
 				for (PropertyDetails p : propertyDetails) {
 					PropertyMaster propertyMaster = propertyMasterRepository
 							.findByBuildingTypeAndPropertyType(p.getBuildingType(), p.getPropertyType());
-					if (propertyMaster == null && propertyMaster.getBuildingAge() > p.getBuildingAge()) {
+					System.out.println("---------------------------");
+					System.out.println(propertyMaster);
+					System.out.println(p.getBuildingType()+" "+ p.getPropertyType());
+					System.out.println("---------------------------");
+					if(propertyMaster == null) {
+					return false;	
+					}
+					if (propertyMaster.getBuildingAge() > p.getBuildingAge()) {
 						return false;
 					}
 					check = true;

@@ -18,5 +18,7 @@ public interface ConsumerService {
 	List<ConsumerDetails> getAllConsumer(String user, String token);
 
 	ConsumerDetails getConsumer(Long cid, String token) throws UnAuthorizedException,ConsumerNotFoundException;
+
+	ConsumerDetails updateConsumer(ConsumerDetails consumerDetails, String token);
 	
 }

@@ -92,6 +92,24 @@ table {
 
 			<!-- Page content-->
 			<div class="container-fluid">
+				<%
+				List<String> bussinessCategory = (List) request.getAttribute("bussinessCategory");
+				List<String> bussinessType = (List) request.getAttribute("bussinessType");
+				List<String> propertyType = (List) request.getAttribute("propertyType");
+				List<String> insuranceType = (List) request.getAttribute("insuranceType");
+				List<String> buildingType = (List) request.getAttribute("buildingType");
+
+				String msg = (String) request.getAttribute("msg");
+
+				if (msg != null) {
+				%>
+				<script>alert("<%=msg%>
+									");
+								</script>
+				<%
+				}
+				%>
+
 
 				<%
 				ConsumerDetails consumer = (ConsumerDetails) request.getAttribute("consumer");
@@ -100,118 +118,181 @@ table {
 				<hr>
 				<div class="table-responsive ">
 					<table class="table table-hover w-50 ">
+					<form:form action="/update-consumer"
+								modelAttribute="consumerDetails" method="POST">	
 						<tr>
 							<th class="text-center">CONSUMER</th>
-							<td><a href="/addBusiness/<%=consumer.getId()%>" class="btn btn-success" >Add New Business</a>
-							<button id="update" class="btn btn-info" >Update</button>
-							</td>
+							<td><a href="/addBusiness/<%=consumer.getId()%>"
+								class="btn btn-success">Add New Business</a>
+								<button id="update" class="btn btn-info">Update</button></td>
 						</tr>
 						<tr>
 							<th>ID</th>
 							<td><%=consumer.getId()%></td>
+							<input type="hidden" name="id" value="<%=consumer.getId()%>"/>
 						</tr>
 						<tr>
 							<th>Name</th>
-							<td><input name="consumerName" class="form-control" value="<%=consumer.getName() %>" required></td>
+							<td><input name="name" class="form-control"
+								value="<%=consumer.getName()%>" required></td>
 						</tr>
 						<tr>
 							<th>Date Of Birth</th>
-							<td><input name="dateOfBirth" type="date" class="form-control" value="<%=consumer.getDob()%>" required></td>
+							<td><input name="dob" type="date"
+								class="form-control" value="<%=consumer.getDob()%>" required></td>
 						</tr>
 						<tr>
 							<th>PAN Number</th>
-							<td><input name="panDetails" class="form-control" value="<%=consumer.getPanDetails()%>" required></td>
+							<td><input name="panDetails" class="form-control"
+								value="<%=consumer.getPanDetails()%>" required></td>
 						</tr>
 						<tr>
 							<th>Email</th>
-							<td><input name="email" type="email" class="form-control" value="<%=consumer.getEmail()%>" required></td>
+							<td><input name="email" type="email" class="form-control"
+								value="<%=consumer.getEmail()%>" required></td>
 						</tr>
 						<tr>
 							<th>Phone Number</th>
-							<td><input type="tel" name="phone" class="form-control" value="<%=consumer.getPhone()%>" required></td>
+							<td><input type="tel" name="phone" class="form-control"
+								value="<%=consumer.getPhone()%>" required></td>
 						</tr>
 						<tr>
 							<th>Agent Name</th>
 							<td><%=consumer.getAgentName()%></td>
+							<input type="hidden" name="agentName" value="<%=consumer.getAgentName()%>"/>
 						</tr>
 
-						
+
 						<%
-						for (BusinessDetails bs : consumer.getBusiness()) {
+						List<BusinessDetails> bs =consumer.getBusiness(); 
+						for(int i=0;i<bs.size();i++){
 						%>
 						<tr>
 							<th class="text-center">BUSINESS</th>
-							<td></td>
+							<td><input type="hidden" name="business[<%=i %>].id" value="<%=bs.get(i).getId()%>"/></td>
 						</tr>
-						
+
 						<tr>
 							<th>Business Category</th>
-							<td><%=bs.getBusinessCategory()%></td>
+							<td><select name="business[<%=i %>].businessCategory" class="form-control">
+									<%
+									for (String cc : bussinessCategory) {
+									%>
+									<option value="<%=cc%>" <%if(cc.equals(bs.get(i).getBusinessCategory())){
+										%>selected<% 
+									} %>><%=cc%></option>
+									<%
+									}
+									%>
+							</select></td>
 						</tr>
 						<tr>
 							<th>Business Type</th>
-							<td><%=bs.getBusinessType()%></td>
+							<td><select name="business[<%=i %>].businessType" class="form-control">
+									<%
+									for (String cc : bussinessType) {
+									%>
+									<option value="<%=cc%>" <%if(cc.equals(bs.get(i).getBusinessType())){
+										%>selected<% 
+									} %>><%=cc%></option>
+									<%
+									}
+									%>
+							</select></td>
 						</tr>
 						<tr>
 							<th>Business Turnover</th>
-							<td><%=bs.getBusinessTurnOver()%></td>
+							<td><input type="number" placeholder="TurnOver" name="business[<%=i %>].businessTurnOver" class="form-control" 
+									value="<%=bs.get(i).getBusinessTurnOver() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Capital Investment</th>
-							<td><%=bs.getCapitalInvested()%></td>
+							<td><input type="number" placeholder="Capital Investment" name="business[<%=i %>].capitalInvested" class="form-control"
+									value="<%=bs.get(i).getCapitalInvested() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Total Employee</th>
-							<td><%=bs.getTotalEmployees()%></td>
+							<td><input type="number" placeholder="Total Employee" name="business[<%=i %>].totalEmployees" class="form-control"
+									value="<%=bs.get(i).getTotalEmployees() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Business Age</th>
-							<td><%=bs.getBusinessAge()%></td>
+							<td><input type="number" placeholder="Business Age" name="business[<%=i %>].businessAge" class="form-control"
+									value="<%=bs.get(i).getTotalEmployees() %>" required/></td>
 						</tr>
 						<tr>
 							<th class="text-center">PROPERTY</th>
 							<td></td>
 						</tr>
 						<%
-						for (PropertyDetails pr : bs.getProperty()) {
+						List<PropertyDetails> pr = bs.get(i).getProperty();
+						
+						for (int j=0;j<pr.size();j++) {
 						%>
+						<input type="hidden" name="business[<%=i %>].property[<%=j %>].id" value="<%=pr.get(j).getId()%>"/>
 						<tr>
 							<th>Property Type</th>
-							<td><%=pr.getPropertyType()%></td>
+							<td><select name="business[<%=i %>].property[<%=j %>].propertyType" class="form-control">
+									<%
+									for (String cc : propertyType) {
+									%>
+									<option class="form-control" value="<%=cc%>" <%if(cc.equals(pr.get(j).getPropertyType())){
+										%>selected<% 
+									} %>><%=cc%></option>
+									<%
+									}
+									%>
+							</select></td>
 						</tr>
 						<tr>
 							<th>Building Square Feet</th>
-							<td><%=pr.getBuildingSqft()%></td>
+							<td><input placeholder="Building Square Feet" name="business[<%=i %>].property[<%=j %>].buildingSqft" class="form-control"
+									value="<%=pr.get(j).getBuildingSqft() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Building Type</th>
-							<td><%=pr.getBuildingType()%></td>
+							<td><select name="business[<%=i %>].property[<%=j %>].buildingType" class="form-control">
+									<%
+									for (String cc : bussinessType) {
+									%>
+									<option class="form-control" value="<%=cc%>" <%if(cc.equals(pr.get(j).getBuildingType())){
+										%>selected<% 
+									} %>><%=cc%></option>
+									<%
+									}
+									%>
+							</select></td>
 						</tr>
 						<tr>
 							<th>Building Storeys</th>
-							<td><%=pr.getBuildingStoreys()%></td>
+							<td><input placeholder="Building Storeys" name="business[<%=i %>].property[<%=j %>].buildingStoreys" class="form-control"
+									value="<%=pr.get(j).getBuildingStoreys() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Building Age</th>
-							<td><%=pr.getBuildingAge()%></td>
+							<td><input type="number" placeholder="Building Age" name="business[<%=i %>].property[<%=j %>].buildingAge" class="form-control"
+									value="<%=pr.get(j).getBuildingAge() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Cost Of The Assets</th>
-							<td><%=pr.getCostOfTheAsset()%></td>
+							<td><input type="number" placeholder="Cost Of The Assets" name="business[<%=i %>].property[<%=j %>].costOfTheAsset" class="form-control"
+									value="<%=pr.get(j).getCostOfTheAsset() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Useful Life Of The Assets</th>
-							<td><%=pr.getUsefulLifeOfTheAsset()%></td>
+							<td><input type="number" placeholder="Useful Life Of The Assets" name="business[<%=i %>].property[<%=j %>].usefulLifeOfTheAsset" class="form-control"
+									value="<%=pr.get(j).getUsefulLifeOfTheAsset() %>" required/></td>
 						</tr>
 						<tr>
 							<th>Salvage Value</th>
-							<td><%=pr.getSalvageValue()%></td>
+							<td><input type="number" placeholder="Salvage Value" name="business[<%=i %>].property[<%=j %>].salvageValue" class="form-control"
+									value="<%=pr.get(j).getSalvageValue() %>" required/></td>
 						</tr>
 						<%
 						}
 						}
 						%>
-						
+					</form:form>
 					</table>
 				</div>
 
@@ -232,23 +313,6 @@ table {
 							<form:form action="/add-consumer"
 								modelAttribute="consumerDetails" method="POST">
 
-								<%
-								List<String> bussinessCategory = (List) request.getAttribute("bussinessCategory");
-								List<String> bussinessType = (List) request.getAttribute("bussinessType");
-								List<String> propertyType = (List) request.getAttribute("propertyType");
-								List<String> insuranceType = (List) request.getAttribute("insuranceType");
-								List<String> buildingType = (List) request.getAttribute("buildingType");
-
-								String msg = (String) request.getAttribute("msg");
-
-								if (msg != null) {
-								%>
-								<script>alert("<%=msg%>
-									");
-								</script>
-								<%
-								}
-								%>
 
 
 								<div class="modal-body">
@@ -456,23 +520,23 @@ table {
 								method="POST">
 								<div class="modal-body">
 									<div class="form-group">
-										<label for="consumerId">Consumer Id</label> <input
-											type="text" name="consumerId" 
-											class="form-control" placeholder="Consumer Id">
+										<label for="consumerId">Consumer Id</label> <input type="text"
+											name="consumerId" class="form-control"
+											placeholder="Consumer Id">
 									</div>
 
 									<div class="form-group">
-										<label for="businessId">Business Id</label> <input
-											type="text" name="businessId"
-											class="form-control" placeholder="Business Id">
+										<label for="businessId">Business Id</label> <input type="text"
+											name="businessId" class="form-control"
+											placeholder="Business Id">
 									</div>
 
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Save
-										Policy</button>
-								</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Save
+											Policy</button>
+									</div>
 							</form>
 						</div>
 					</div>
@@ -532,13 +596,13 @@ table {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
 		integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
 		crossorigin="anonymous"></script>
-		
+
 	<script>
 	
 		
 	
-	</script>	
-		
+	</script>
+
 </body>
 
 </html>

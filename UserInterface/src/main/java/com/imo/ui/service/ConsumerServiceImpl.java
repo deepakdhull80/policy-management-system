@@ -144,7 +144,6 @@ public class ConsumerServiceImpl implements ConsumerService{
 		
 		if(response.getStatusCode()==HttpStatus.OK) {
 			
-			System.out.println(response.getBody());
 			
 			return response.getBody();
 			
@@ -155,6 +154,36 @@ public class ConsumerServiceImpl implements ConsumerService{
 			throw new ConsumerNotFoundException("Consumer not exist id: "+cid);
 		}
 	
+		return null;
+	}
+
+	@Override
+	public ConsumerDetails updateConsumer(ConsumerDetails consumerDetails, String token) {
+		// TODO Auto-generated method stub
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", token);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		
+		HttpEntity<ConsumerDetails> request = new HttpEntity<ConsumerDetails>(consumerDetails,headers);
+		
+		ResponseEntity<ConsumerDetails> response;
+		try {
+			response = template.exchange(this.HOST+this.SERVICE + "consumers/"+consumerDetails.getId(),HttpMethod.PUT ,request, ConsumerDetails.class);
+			System.out.println(response.getBody());
+		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
+			return null;
+		}
+		if (response.getStatusCode() == HttpStatus.OK) {
+			return response.getBody();
+		}else if(response.getStatusCode() == HttpStatus.FORBIDDEN) {
+			
+			return null;
+			
+		}
+		
+		
 		return null;
 	}
 

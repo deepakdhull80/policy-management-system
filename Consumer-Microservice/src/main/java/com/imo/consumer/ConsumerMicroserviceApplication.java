@@ -58,11 +58,11 @@ public class ConsumerMicroserviceApplication implements ApplicationRunner{
 		//id insurancetype propertytype buildingtype buildingage
 		
 		
-		PropertyMaster propertyMaster = new PropertyMaster(1L,"property", "PRIVATE", "institute", 12L);
+		PropertyMaster propertyMaster = new PropertyMaster(1L,"Property", "PRIVATE", "Institute", 12L);
 		
 		prRepository.save(propertyMaster);
 		
-		propertyMaster = new PropertyMaster(2L,"property", "PRIVATE", "property", 5L);
+		propertyMaster = new PropertyMaster(2L,"Property", "PRIVATE", "Property", 5L);
 		
 		prRepository.save(propertyMaster);
 		
@@ -92,7 +92,7 @@ public class ConsumerMicroserviceApplication implements ApplicationRunner{
 		p.setBuildingAge(30L);
 		p.setBuildingSqft("2221");
 		p.setBuildingStoreys("1213");
-		p.setBuildingType("institute");
+		p.setBuildingType("Institute");
 		p.setCostOfTheAsset(424244L);
 		p.setPropertyType("PRIVATE");
 		p.setSalvageValue(41424235L);
@@ -106,7 +106,7 @@ public class ConsumerMicroserviceApplication implements ApplicationRunner{
 		bl.add(bu);
 		
 		consumer.setBusiness(bl);
-		
+		if(cService.checkEligibility(consumer))
 		System.out.println(cService.saveConsumer(consumer));
 		
 		
