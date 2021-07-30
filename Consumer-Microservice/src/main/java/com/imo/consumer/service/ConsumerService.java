@@ -3,6 +3,7 @@ package com.imo.consumer.service;
 import java.util.List;
 
 import com.imo.consumer.exception.ConsumerNotFoundException;
+import com.imo.consumer.exception.NotEligibleException;
 import com.imo.consumer.model.ConsumerDetails;
 import com.imo.consumer.model.BusinessDetails;
 
@@ -20,7 +21,7 @@ public interface ConsumerService {
 	
 	public Long calPropertyValue(Long costoftheasset, Long salvagevalue, Long usefullifeoftheAsset);
 	
-	BusinessDetails saveBusinessProperty(BusinessDetails businessDetails, Long cid) throws ConsumerNotFoundException;
+	BusinessDetails saveBusinessProperty(BusinessDetails businessDetails, Long cid) throws Exception;
 
 	List<ConsumerDetails> findAllConsumers(String username);
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.imo.consumer.exception.ConsumerNotFoundException;
+import com.imo.consumer.exception.NotEligibleException;
 import com.imo.consumer.model.BusinessDetails;
 import com.imo.consumer.model.BusinessMaster;
 import com.imo.consumer.model.ConsumerDetails;
@@ -29,7 +30,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
 	@Autowired
 	PropertyMasterRepository propertyMasterRepository;
-	
+
 	@Autowired
 	private BusinessRepository businessPropertyRepo;
 
@@ -39,7 +40,6 @@ public class ConsumerServiceImpl implements ConsumerService {
 		List<BusinessDetails> business = consumerDetails.getBusiness();
 		for (BusinessDetails b : business) {
 			Long businessValue = calBusinessValue(b.getBusinessTurnOver(), b.getCapitalInvested());
-			System.out.println(businessValue);
 			b.setBusinessValue(businessValue);
 			List<PropertyDetails> property = b.getProperty();
 			for (PropertyDetails p : property) {
@@ -86,7 +86,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 	@Override
 	public List<ConsumerDetails> findAllConsumers(String agentName) {
 		// TODO Auto-generated method stub
-		
+
 		List<ConsumerDetails> con = consumerRepository.findByAgentName(agentName);
 		return con;
 	}
@@ -99,21 +99,21 @@ public class ConsumerServiceImpl implements ConsumerService {
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
 
 		for (BusinessDetails b : businessDetails) {
-			System.out.println(b.getBusinessCategory()+"  "+ b.getBusinessType());
+			System.out.println(b.getBusinessCategory() + "  " + b.getBusinessType());
 			BusinessMaster businessMaster = businessMasterRepository
 					.findByBusinessCategoryAndBusinessType(b.getBusinessCategory(), b.getBusinessType());
 			if (businessMaster == null) {
 				return false;
 			}
 
-			if (businessMaster!= null && (businessMaster.getTotalEmployees() <= b.getTotalEmployees()
+			if (businessMaster != null && (businessMaster.getTotalEmployees() <= b.getTotalEmployees()
 					&& businessMaster.getBusinessAge() <= b.getBusinessAge())) {
-				
+
 				List<PropertyDetails> propertyDetails = b.getProperty();
 				for (PropertyDetails p : propertyDetails) {
 					PropertyMaster propertyMaster = propertyMasterRepository
 							.findByBuildingTypeAndPropertyType(p.getBuildingType(), p.getPropertyType());
-					if(propertyMaster == null && propertyMaster.getBuildingAge()> p.getBuildingAge()) {
+					if (propertyMaster == null && propertyMaster.getBuildingAge() > p.getBuildingAge()) {
 						return false;
 					}
 					check = true;
@@ -142,34 +142,40 @@ public class ConsumerServiceImpl implements ConsumerService {
 
 		return (long) Math.abs(Math.round(propertyvalue));
 	}
-	
+
 	@Override
-	public BusinessDetails saveBusinessProperty(BusinessDetails businessDetails,Long cid) throws ConsumerNotFoundException {
-		List<PropertyDetails> propertyDetails=businessDetails.getProperty();
-		for(PropertyDetails propertObj:propertyDetails) {
-			long propertyValue=calPropertyValue(propertObj.getCostOfTheAsset(), propertObj.getSalvageValue(),propertObj.getUsefulLifeOfTheAsset());
+	public BusinessDetails saveBusinessProperty(BusinessDetails businessDetails, Long cid)
+			throws Exception {
+		List<PropertyDetails> propertyDetails = businessDetails.getProperty();
+		for (PropertyDetails propertObj : propertyDetails) {
+			long propertyValue = calPropertyValue(propertObj.getCostOfTheAsset(), propertObj.getSalvageValue(),
+					propertObj.getUsefulLifeOfTheAsset());
 			propertObj.setPropertyValue(propertyValue);
 		}
 		businessDetails.setProperty(propertyDetails);
-		
-		
-		
+
 		/*
-		 * it should be save through consumer repository, if not then this bussiness is not belong to any consumer
+		 * it should be save through consumer repository, if not then this bussiness is
+		 * not belong to any consumer
 		 * 
 		 * 
-		 * */ 
-		
-		Optional<ConsumerDetails> conOptional =consumerRepository.findById(cid);
-		if(conOptional.isEmpty()) {
+		 */
+
+		Optional<ConsumerDetails> conOptional = consumerRepository.findById(cid);
+		if (conOptional.isEmpty()) {
 			throw new ConsumerNotFoundException("Consumer Not Found");
 		}
+
 		conOptional.get().getBusiness().add(businessDetails);
-		
-		ConsumerDetails result =  consumerRepository.save(conOptional.get());
-		
-		return result.getBusiness().get(result.getBusiness().size()-1);
-		
+
+		if (!this.checkEligibility(conOptional.get())) {
+			throw new NotEligibleException("Not Eligible");
+		}
+
+		ConsumerDetails result = consumerRepository.save(conOptional.get());
+
+		return result.getBusiness().get(result.getBusiness().size() - 1);
+
 	}
 
 }

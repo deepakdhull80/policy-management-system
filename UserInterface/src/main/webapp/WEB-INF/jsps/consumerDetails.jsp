@@ -52,7 +52,7 @@
 
 				<button type="button"
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					data-toggle="modal" data-target="#issuePolicy">Issue
+					data-toggle="modal" data-target="#issue">Issue
 					Policy</button>
 
 				<a href="/policyDetails"
@@ -109,11 +109,11 @@
 								<th scope="row"><%=consumer.getId() %></th>
 								<td><%=consumer.getName() %></td>
 								<td><%=consumer.getDob() %></td>
-								<td><%=consumer.getPandetails() %></td>
+								<td><%=consumer.getPanDetails() %></td>
 								<td><%=consumer.getEmail() %></td>
 								<td><%=consumer.getPhone() %></td>
-								<td><%=consumer.getAgentname() %></td>
-								<td><a href="#" class="btn btn-primary"> Edit </a> <a
+								<td><%=consumer.getAgentName() %></td>
+								<td><a href="editConsumer/<%=consumer.getId() %>" class="btn btn-primary"> Edit </a> <a
 									href="viewConsumer/<%=consumer.getId() %>" class="btn btn-success"> View </a></td>
 							</tr>
 							<%}} %>
@@ -346,71 +346,20 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="/createPolicy" modelAttribute="createPolicy"
+							<form action="/create-policy" modelAttribute="detail"
 								method="POST">
 								<div class="modal-body">
 									<div class="form-group">
-										<label for="propertyType">Property Type</label> <input
-											type="text" name="propertyType" path="propertyType"
-											class="form-control" placeholder="Property Type">
+										<label for="consumerId">Consumer Id</label> <input
+											type="text" name="consumerId" 
+											class="form-control" placeholder="Consumer Id">
 									</div>
-									<sf:errors style="color:red" path="propertyType"></sf:errors>
 
 									<div class="form-group">
-										<label for="propertyType">Property Type</label> <input
-											type="text" name="propertyType" path="propertyType"
-											class="form-control" placeholder="Property Type">
+										<label for="businessId">Business Id</label> <input
+											type="text" name="businessId"
+											class="form-control" placeholder="Business Id">
 									</div>
-									<sf:errors style="color:red" path="propertyType"></sf:errors>
-
-									<div class="form-group">
-										<label for="consumerType">Consumer Type</label> <input
-											type="text" name="consumerType" path="consumerType"
-											class="form-control" placeholder="Consumer Type">
-									</div>
-									<sf:errors style="color:red" path="consumerType"></sf:errors>
-
-									<div class="form-group">
-										<label for="assuredSum">Assured Sum</label> <input type="text"
-											name="assuredSum" path="assuredSum" class="form-control"
-											placeholder="Assured Sum">
-									</div>
-									<sf:errors style="color:red" path="assuredSum"></sf:errors>
-
-									<div class="form-group">
-										<label for="tenure">Tenure</label> <input type="text"
-											name="tenure" path="tenure" class="form-control"
-											placeholder="Tenure">
-									</div>
-									<sf:errors style="color:red" path="tenure"></sf:errors>
-
-									<div class="form-group">
-										<label for="businessValue"> Business Value</label> <input
-											type="number" name="businessValue" path="businessValue"
-											min="0" class="form-control" placeholder="Business Value">
-									</div>
-									<sf:errors style="color:red" path="businessValue"></sf:errors>
-
-									<div class="form-group">
-										<label for="propertyValue"> Property Value</label> <input
-											type="number" name="propertyValue" path="propertyValue"
-											min="0" class="form-control" placeholder="Property Value">
-									</div>
-									<sf:errors style="color:red" path="propertyValue"></sf:errors>
-
-									<div class="form-group">
-										<label for="baseLocation">Base Location</label> <input
-											type="text" name="baseLocation" path="baseLocation"
-											class="form-control" placeholder="Base Location">
-									</div>
-									<sf:errors style="color:red" path="baseLocation"></sf:errors>
-
-									<div class="form-group">
-										<label for="type">Type</label> <input type="text" name="type"
-											path="type" class="form-control" placeholder="Type">
-									</div>
-									<sf:errors style="color:red" path="type"></sf:errors>
-								</div>
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
@@ -425,31 +374,38 @@
 				<!-- create policy ends -->
 
 				<!-- Issue policy Modal -->
-				<div class="modal fade" id="issuePolicy" tabindex="-1" role="dialog"
-					aria-labelledby="issuePolicyLabel" aria-hidden="true">
+				<div class="modal fade" id="issue" tabindex="-1"
+					role="dialog" aria-labelledby="issuePolicyLabel"
+					aria-hidden="true">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="issuePolicyLabel">Issue Policy</h5>
+								<h5 class="modal-title" id="issuePolicyLabel">Issue
+									Policy</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="#" modelAttribute="issuePolicy" method="POST">
+							<form action="/issue-policy" modelAttribute="detail"
+								method="POST">
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="consumerId">Consumer Id</label> <input
-											type="number" name="consumerId" path="consumerId" min="0"
+											type="text" name="consumerId" 
 											class="form-control" placeholder="Consumer Id">
 									</div>
-									<sf:errors style="color:red" path="consumerId"></sf:errors>
-								</div>
+
+									<div class="form-group">
+										<label for="businessId">Business Id</label> <input
+											type="text" name="businessId"
+											class="form-control" placeholder="Business Id">
+									</div>
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Save
+									<button type="submit" class="btn btn-primary">Issue
 										Policy</button>
 								</div>
 							</form>

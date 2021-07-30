@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class ConsumerPolicy {
 	
 	@Id
@@ -42,22 +44,18 @@ public class ConsumerPolicy {
 	private Long consumerId;
 	
 	@NotBlank
-	@Size(max = 30)
 	@Column(name = "Property_Type")
 	private String propertyType;
 	
 	@NotBlank
-	@Size(max = 30)
 	@Column(name = "Consumer_Type")
 	private String consumerType;
 
 	@NotBlank
-	@Size(max = 40)
 	@Column(name = "Assured_Sum")
 	private String assuredSum;
 
 	@NotBlank
-	@Size(max = 30)
 	@Column(name = "Tenure")
 	private String tenure;
 
@@ -70,7 +68,6 @@ public class ConsumerPolicy {
 	private Long propertyValue;
 	
 	@NotBlank
-	@Size(max = 30)
 	@Column(name = "Base_Location")
 	private String baseLocation;
 	
@@ -80,12 +77,10 @@ public class ConsumerPolicy {
 	private String type;
 	
 	@NotBlank
-	@Size(max = 15)
 	@Column(name = "Accepted_Quotes")
 	private String acceptedQuote;
 	
 	@NotBlank
-	@Size(max = 15)
 	@Column(name = "Status")
 	private String status;
 	

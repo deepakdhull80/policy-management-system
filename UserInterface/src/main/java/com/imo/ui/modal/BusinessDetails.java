@@ -14,28 +14,30 @@ import lombok.Setter;
 public class BusinessDetails {
 	private Long id;
 	
-	private String businesscategory;
+	private String businessCategory;
 
-	private String businesstype;
+	private String businessType;
 
-	private Long businessturnover;
+	private Long businessTurnOver;
 
-	private Long capitalinvested;
+	private Long capitalInvested;
 
-	private Long totalemployees;
+	private Long totalEmployees;
 
-	private Long businessvalue;
+	private Long businessValue;
 
-	private Long businessage;
+	private Long businessAge;
 	
 	private List<PropertyDetails> property;
 
 	@Override
 	public String toString() {
-		return "BusinessDetails [id=" + id + ", businesscategory=" + businesscategory + ", businesstype=" + businesstype
-				+ ", businessturnover=" + businessturnover + ", capitalinvested=" + capitalinvested
-				+ ", totalemployees=" + totalemployees + ", businessvalue=" + businessvalue + ", businessage="
-				+ businessage + ", property=" + property + "]";
+		return "BusinessDetails [id=" + id + ", businessCategory=" + businessCategory + ", businessType=" + businessType
+				+ ", businessTurnOver=" + businessTurnOver + ", capitalInvested=" + capitalInvested
+				+ ", totalEmployees=" + totalEmployees + ", businessValue=" + businessValue + ", businessAge="
+				+ businessAge + ", property=" + property + "]";
 	}
+
+	
 	
 }

@@ -117,7 +117,7 @@ table {
 						</tr>
 						<tr>
 							<th>PAN Number</th>
-							<td><%=consumer.getPandetails()%></td>
+							<td><%=consumer.getPanDetails()%></td>
 						</tr>
 						<tr>
 							<th>Email</th>
@@ -129,39 +129,44 @@ table {
 						</tr>
 						<tr>
 							<th>Agent Name</th>
-							<td><%=consumer.getAgentname()%></td>
+							<td><%=consumer.getAgentName()%></td>
 						</tr>
 
-						<tr>
-							<th class="text-center">BUSINESS</th>
-							<td></td>
-						</tr>
 						<%
 						for (BusinessDetails bs : consumer.getBusiness()) {
 						%>
 						<tr>
+							<th class="text-center">BUSINESS</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Business Id</th>
+							<td><%=bs.getId()%></td>
+						</tr>
+						
+						<tr>
 							<th>Business Category</th>
-							<td><%=bs.getBusinesscategory()%></td>
+							<td><%=bs.getBusinessCategory()%></td>
 						</tr>
 						<tr>
 							<th>Business Type</th>
-							<td><%=bs.getBusinesstype()%></td>
+							<td><%=bs.getBusinessType()%></td>
 						</tr>
 						<tr>
 							<th>Business Turnover</th>
-							<td><%=bs.getBusinessturnover()%></td>
+							<td><%=bs.getBusinessTurnOver()%></td>
 						</tr>
 						<tr>
 							<th>Capital Investment</th>
-							<td><%=bs.getCapitalinvested()%></td>
+							<td><%=bs.getCapitalInvested()%></td>
 						</tr>
 						<tr>
 							<th>Total Employee</th>
-							<td><%=bs.getTotalemployees()%></td>
+							<td><%=bs.getTotalEmployees()%></td>
 						</tr>
 						<tr>
 							<th>Business Age</th>
-							<td><%=bs.getBusinessage()%></td>
+							<td><%=bs.getBusinessAge()%></td>
 						</tr>
 						<tr>
 							<th class="text-center">PROPERTY</th>
@@ -171,36 +176,40 @@ table {
 						for (PropertyDetails pr : bs.getProperty()) {
 						%>
 						<tr>
+							<th>Property Id</th>
+							<td><%=pr.getId()%></td>
+						</tr>
+						<tr>
 							<th>Property Type</th>
-							<td><%=pr.getPropertytype()%></td>
+							<td><%=pr.getPropertyType()%></td>
 						</tr>
 						<tr>
 							<th>Building Square Feet</th>
-							<td><%=pr.getBuildingsqft()%></td>
+							<td><%=pr.getBuildingSqft()%></td>
 						</tr>
 						<tr>
 							<th>Building Type</th>
-							<td><%=pr.getBuildingtype()%></td>
+							<td><%=pr.getBuildingType()%></td>
 						</tr>
 						<tr>
 							<th>Building Storeys</th>
-							<td><%=pr.getBuildingstoreys()%></td>
+							<td><%=pr.getBuildingStoreys()%></td>
 						</tr>
 						<tr>
 							<th>Building Age</th>
-							<td><%=pr.getBuildingage()%></td>
+							<td><%=pr.getBuildingAge()%></td>
 						</tr>
 						<tr>
 							<th>Cost Of The Assets</th>
-							<td><%=pr.getCostoftheasset()%></td>
+							<td><%=pr.getCostOfTheAsset()%></td>
 						</tr>
 						<tr>
 							<th>Usefull Life Of The Assets</th>
-							<td><%=pr.getUsefullifeoftheAsset()%></td>
+							<td><%=pr.getUsefulLifeOfTheAsset()%></td>
 						</tr>
 						<tr>
 							<th>Salvage Value</th>
-							<td><%=pr.getSalvagevalue()%></td>
+							<td><%=pr.getSalvageValue()%></td>
 						</tr>
 						<%
 						}
@@ -446,71 +455,20 @@ table {
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="/createPolicy" modelAttribute="createPolicy"
+							<form action="/create-policy" modelAttribute="detail"
 								method="POST">
 								<div class="modal-body">
 									<div class="form-group">
-										<label for="propertyType">Property Type</label> <input
-											type="text" name="propertyType" path="propertyType"
-											class="form-control" placeholder="Property Type">
+										<label for="consumerId">Consumer Id</label> <input
+											type="text" name="consumerId" 
+											class="form-control" placeholder="Consumer Id">
 									</div>
-									<sf:errors style="color:red" path="propertyType"></sf:errors>
 
 									<div class="form-group">
-										<label for="propertyType">Property Type</label> <input
-											type="text" name="propertyType" path="propertyType"
-											class="form-control" placeholder="Property Type">
+										<label for="businessId">Business Id</label> <input
+											type="text" name="businessId"
+											class="form-control" placeholder="Business Id">
 									</div>
-									<sf:errors style="color:red" path="propertyType"></sf:errors>
-
-									<div class="form-group">
-										<label for="consumerType">Consumer Type</label> <input
-											type="text" name="consumerType" path="consumerType"
-											class="form-control" placeholder="Consumer Type">
-									</div>
-									<sf:errors style="color:red" path="consumerType"></sf:errors>
-
-									<div class="form-group">
-										<label for="assuredSum">Assured Sum</label> <input type="text"
-											name="assuredSum" path="assuredSum" class="form-control"
-											placeholder="Assured Sum">
-									</div>
-									<sf:errors style="color:red" path="assuredSum"></sf:errors>
-
-									<div class="form-group">
-										<label for="tenure">Tenure</label> <input type="text"
-											name="tenure" path="tenure" class="form-control"
-											placeholder="Tenure">
-									</div>
-									<sf:errors style="color:red" path="tenure"></sf:errors>
-
-									<div class="form-group">
-										<label for="businessValue"> Business Value</label> <input
-											type="number" name="businessValue" path="businessValue"
-											min="0" class="form-control" placeholder="Business Value">
-									</div>
-									<sf:errors style="color:red" path="businessValue"></sf:errors>
-
-									<div class="form-group">
-										<label for="propertyValue"> Property Value</label> <input
-											type="number" name="propertyValue" path="propertyValue"
-											min="0" class="form-control" placeholder="Property Value">
-									</div>
-									<sf:errors style="color:red" path="propertyValue"></sf:errors>
-
-									<div class="form-group">
-										<label for="baseLocation">Base Location</label> <input
-											type="text" name="baseLocation" path="baseLocation"
-											class="form-control" placeholder="Base Location">
-									</div>
-									<sf:errors style="color:red" path="baseLocation"></sf:errors>
-
-									<div class="form-group">
-										<label for="type">Type</label> <input type="text" name="type"
-											path="type" class="form-control" placeholder="Type">
-									</div>
-									<sf:errors style="color:red" path="type"></sf:errors>
-								</div>
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"

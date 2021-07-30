@@ -48,29 +48,29 @@ public class ConsumerServiceImpl implements ConsumerService{
 		ConsumerDetails consumerDetail = new ConsumerDetails();
 		
 		consumerDetail.setName(co.getConsumerName());
-		consumerDetail.setAgentname(co.getAgentName());
+		consumerDetail.setAgentName(co.getAgentName());
 		consumerDetail.setDob(co.getDateOfBirth());
 		consumerDetail.setEmail(co.getEmail());
-		consumerDetail.setPandetails(co.getPanDetails());
+		consumerDetail.setPanDetails(co.getPanDetails());
 		consumerDetail.setPhone(co.getPhone());
 		
 		BusinessDetails business = new BusinessDetails();
-		business.setBusinessage(co.getBusinessAge());
-		business.setBusinesscategory(co.getBusinessCategory());
-		business.setBusinessturnover(co.getBusinessTurnover());
-		business.setBusinesstype(co.getBusinessType());
-		business.setCapitalinvested(co.getCapitalInvested());
-		business.setTotalemployees(co.getTotalEmployee());
+		business.setBusinessAge(co.getBusinessAge());
+		business.setBusinessCategory(co.getBusinessCategory());
+		business.setBusinessTurnOver(co.getBusinessTurnover());
+		business.setBusinessType(co.getBusinessType());
+		business.setCapitalInvested(co.getCapitalInvested());
+		business.setTotalEmployees(co.getTotalEmployee());
 		
 		PropertyDetails propertyDetails = new PropertyDetails();
-		propertyDetails.setBuildingage(co.getBuildingAge());
-		propertyDetails.setBuildingsqft(co.getBuildingsqft());
-		propertyDetails.setBuildingstoreys(co.getBuildingStoreys());
-		propertyDetails.setBuildingtype(co.getBuildingType());
-		propertyDetails.setPropertytype(co.getPropertyType());
-		propertyDetails.setCostoftheasset(co.getCostOfTheAsset());
-		propertyDetails.setUsefullifeoftheAsset(co.getLifeOfAsset());
-		propertyDetails.setSalvagevalue(co.getSalvageValue());
+		propertyDetails.setBuildingAge(co.getBuildingAge());
+		propertyDetails.setBuildingSqft(co.getBuildingsqft());
+		propertyDetails.setBuildingStoreys(co.getBuildingStoreys());
+		propertyDetails.setBuildingType(co.getBuildingType());
+		propertyDetails.setPropertyType(co.getPropertyType());
+		propertyDetails.setCostOfTheAsset(co.getCostOfTheAsset());
+		propertyDetails.setUsefulLifeOfTheAsset(co.getLifeOfAsset());
+		propertyDetails.setSalvageValue(co.getSalvageValue());
 		
 		List<PropertyDetails > listProps = new ArrayList<>();
 		listProps.add(propertyDetails);

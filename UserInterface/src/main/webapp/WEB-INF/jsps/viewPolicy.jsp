@@ -1,3 +1,4 @@
+<%@page import="com.imo.ui.modal.ConsumerPolicy"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -13,17 +14,17 @@
             <meta name="author" content="" />
             <title>Policy Administration System</title>
 
-            <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+            <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 
             <!-- Integrated bootstrap css style  -->
-            <link rel="stylesheet" href="css/bootstrap.css">
+            <link rel="stylesheet" href="/css/bootstrap.css">
             <!-- Integrating font awesome icons  -->
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
                 integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
             <!-- Integrating google material icons  -->
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-            <link href="css/styles.css" rel="stylesheet" />
+            <link href="/css/styles.css" rel="stylesheet" />
             <style>
             table{
                 margin-left: 25%;
@@ -79,60 +80,54 @@
                         </div>
                     </nav>
 
+
+					<% List<ConsumerPolicy> policyList =(List<ConsumerPolicy>) request.getAttribute("policyList"); %>
+
                     <!-- Page content-->
                     <div class="container-fluid">
 
                         <div class="display-4 text-center m-4">Details</div>
                         <hr>
-                        <div class="table-responsive ">
-                            <table class="table table-hover w-50">
-                                <tr>
-                                    <th>Consumer ID</th>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <th>Policy Id</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Policy Property</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Consumer Type</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Assured Sum</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Tenure</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Business Value</th>
-                                    <td></td>
-                                </tr>
 
+                        <table class="table" style="margin-left:0px;">
+                            <thead>
                                 <tr>
-                                    <th>Property Value</th>
-                                    <td>1</td>
+                                <th scope="col">Policy Id</th>
+                                <th scope="col">Business Id</th>
+                                <th scope="col">Consumer Id</th>
+                                <th scope="col">Property Type</th>
+                                <th scope="col">Consumer Type</th>
+                                <th scope="col">Assured Sum</th>
+                                <th scope="col">Tenure</th>
+                                <th scope="col">B Value</th>
+                                <th scope="col">P Value</th>
+                                <th scope="col">Base Location</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">AcceptedQuote</th>
+                                <th scope="col">Status</th>
+
                                 </tr>
+                            </thead>
+                            <tbody>
+                            <% for(ConsumerPolicy policy: policyList){ %>
                                 <tr>
-                                    <th>Base Location</th>
-                                    <td></td>
+                                <td><%=policy.getPid()%></td>
+                                <td><%=policy.getBusinessId()%></td>
+                                <td><%=policy.getConsumerId()%></td>
+                                <td><%=policy.getPropertyType()%></td>
+                                <td><%=policy.getConsumerType()%></td>
+                                <td><%=policy.getAssuredSum()%></td>
+                                <td><%=policy.getTenure()%></td>
+                                <td><%=policy.getBusinessValue()%></td>
+                                <td><%=policy.getPropertyValue()%></td>
+                                <td><%=policy.getBaseLocation()%></td>
+                                <td><%=policy.getType()%></td>
+                                <td><%=policy.getAcceptedQuote()%></td>
+                                <td><%=policy.getStatus()%></td>
                                 </tr>
-                                <tr>
-                                    <th>Type</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th>Acceptance Quotes</th>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </div>
+                            <%}%>
+                            </tbody>
+                        </table>
 
                         <!-- Modals -->
                         <!-- Create Business and Property -->
@@ -366,78 +361,28 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="/createPolicy" modelAttribute="createPolicy" method="POST">
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="propertyType">Property Type</label>
-                                                <input type="text" name="propertyType" path="propertyType"
-                                                    class="form-control" placeholder="Property Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="propertyType"></sf:errors>
+                                    <form action="/create-policy" modelAttribute="detail"
+								method="POST">
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="consumerId">Consumer Id</label> <input
+											type="text" name="consumerId" 
+											class="form-control" placeholder="Consumer Id">
+									</div>
 
-                                            <div class="form-group">
-                                                <label for="propertyType">Property Type</label>
-                                                <input type="text" name="propertyType" path="propertyType"
-                                                    class="form-control" placeholder="Property Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="propertyType"></sf:errors>
+									<div class="form-group">
+										<label for="businessId">Business Id</label> <input
+											type="text" name="businessId"
+											class="form-control" placeholder="Business Id">
+									</div>
 
-                                            <div class="form-group">
-                                                <label for="consumerType">Consumer Type</label>
-                                                <input type="text" name="consumerType" path="consumerType"
-                                                    class="form-control" placeholder="Consumer Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="consumerType"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="assuredSum">Assured Sum</label>
-                                                <input type="text" name="assuredSum" path="assuredSum"
-                                                    class="form-control" placeholder="Assured Sum">
-                                            </div>
-                                            <sf:errors style="color:red" path="assuredSum"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="tenure">Tenure</label>
-                                                <input type="text" name="tenure" path="tenure" class="form-control"
-                                                    placeholder="Tenure">
-                                            </div>
-                                            <sf:errors style="color:red" path="tenure"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="businessValue"> Business Value</label>
-                                                <input type="number" name="businessValue" path="businessValue" min="0"
-                                                    class="form-control" placeholder="Business Value">
-                                            </div>
-                                            <sf:errors style="color:red" path="businessValue"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="propertyValue"> Property Value</label>
-                                                <input type="number" name="propertyValue" path="propertyValue" min="0"
-                                                    class="form-control" placeholder="Property Value">
-                                            </div>
-                                            <sf:errors style="color:red" path="propertyValue"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="baseLocation">Base Location</label>
-                                                <input type="text" name="baseLocation" path="baseLocation"
-                                                    class="form-control" placeholder="Base Location">
-                                            </div>
-                                            <sf:errors style="color:red" path="baseLocation"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="type">Type</label>
-                                                <input type="text" name="type" path="type" class="form-control"
-                                                    placeholder="Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="type"></sf:errors>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save Policy</button>
-                                        </div>
-                                    </form>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save
+										Policy</button>
+								</div>
+							</form>
                                 </div>
                             </div>
                         </div>
@@ -481,10 +426,10 @@
             <!-- Bootstrap core JS-->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
             <!-- Core theme JS-->
-            <script src="js/scripts.js"></script>
-            <script src="js/jquery-3.6.0.js"></script>
-            <script src="js/bootstrap.js"></script>
-            <script src="js/popper.js"></script>
+            <script src="/js/scripts.js"></script>
+            <script src="/js/jquery-3.6.0.js"></script>
+            <script src="/js/bootstrap.js"></script>
+            <script src="/js/popper.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
                 integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
                 crossorigin="anonymous"></script>

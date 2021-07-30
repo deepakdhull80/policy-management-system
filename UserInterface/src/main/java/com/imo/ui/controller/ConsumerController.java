@@ -141,7 +141,7 @@ public class ConsumerController {
 		return "viewConsumer";
 	}
 	
-	@GetMapping("/updateConsumer/{cid}")
+	@GetMapping("/editConsumer/{cid}")
 	public String updateConsumer(@PathVariable Long cid,HttpServletRequest request, ModelMap map) throws UnAuthorizedException, ConsumerNotFoundException, JsonProcessingException {
 		String token = (String) request.getSession().getAttribute("token");
 
@@ -160,6 +160,7 @@ public class ConsumerController {
 			return "redirect:/consumerDetails";
 			
 		}
+	
 		
 		Map<String, List<String>> response = propertyService.getProperties(token);
 
@@ -172,7 +173,7 @@ public class ConsumerController {
 		
 		map.addAttribute("consumer", consumer);
 		
-		return null;
+		return "editConsumer";
 	}
 	
 

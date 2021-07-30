@@ -60,7 +60,7 @@ public class PolicyController {
 	}
 
 	@PostMapping("/createPolicy")
-	public ResponseEntity<ConsumerDetails> createPolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws Exception {
+	public ResponseEntity<ConsumerDetails> createPolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws PolicyNotFoundException,Exception {
 
 			Long cid = consumerPolicyRequest.getConsumerId();
 			ConsumerDetails consumerDetails = consumerClient.viewConsumer(cid);

@@ -107,6 +107,8 @@ public class ConsumerController {
 			throws ConsumerNotFoundException, AuthorizationException {
 
 		ConsumerDetails con = consumerService.findConsumerById(cid);
+		System.out.println("---------------------");
+		System.out.println(con.getBusiness().get(0).getBusinessValue());
 		return con;
 
 	}
@@ -120,8 +122,14 @@ public class ConsumerController {
 	}
 
 	@PostMapping(value = "createBusinessProperty/{cid}")
-	public ResponseEntity<BusinessDetails> createBusinessProperty(@PathVariable Long cid,@RequestBody BusinessDetails businessDetails) throws ConsumerNotFoundException {
-		BusinessDetails bs = consumerService.saveBusinessProperty(businessDetails,cid);
+	public ResponseEntity<BusinessDetails> createBusinessProperty(@PathVariable Long cid,@RequestBody BusinessDetails businessDetails) throws ConsumerNotFoundException, NotEligibleException {
+		BusinessDetails bs=null;
+		try {
+			bs = consumerService.saveBusinessProperty(businessDetails,cid);
+		} catch (Exception e) {
+			
+			throw new NotEligibleException("Not Eligible");
+		}
 		return new ResponseEntity<BusinessDetails>(bs, HttpStatus.OK);
 
 	}

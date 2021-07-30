@@ -27,6 +27,8 @@
         </head>
 
         <body>
+
+
             <div class="d-flex" id="wrapper">
                 <!-- Sidebar-->
                 <div class="border-end bg-white" id="sidebar-wrapper">
@@ -79,38 +81,14 @@
 
                         <div class="display-4 text-center m-4">View Policy</div>
                         <hr>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Consumer Id</th>
-                                    <th scope="col">Policy Id</th>
-                                    <th scope="col">Property Type</th>
-                                    <th scope="col">Consumer Type</th>
-                                    <th scope="col">Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <th scope="row">1</th>
-                                    <td>abc</td>
-                                    <td>09/09/2020</td>
-                                    <td>BSGHJ67391Q</td>
-                                    <td>
-                                        <a href="viewPolicy" class="btn btn-success"> View </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>abc</td>
-                                    <td>09/09/2020</td>
-                                    <td>BSGHJ67391Q</td>
-                                    <td>
-                                        <a href="#" class="btn btn-success"> View </a>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
+      
+
+                        <div class="container">
+                            <form:form action="/view-policy" modelAttribute="detail" method="POST" style="width:15%;margin-left:auto;margin-right:auto;">
+                            	<input placeholder="Consumer Id" class="form-control m-3" name="cid" required />	
+                            	<input placeholder="Business Id" class="form-control m-3" name="bid" required />
+                            	<input type="submit" value="submit" class="btn btn-success ml-5" />
+                            </form:form>
                         </div>
 
                         <!-- Modals -->
@@ -332,78 +310,28 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="/createPolicy" modelAttribute="createPolicy" method="POST">
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="propertyType">Property Type</label>
-                                                <input type="text" name="propertyType" path="propertyType"
-                                                    class="form-control" placeholder="Property Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="propertyType"></sf:errors>
+                                    <form action="/create-policy" modelAttribute="detail"
+								method="POST">
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="consumerId">Consumer Id</label> <input
+											type="text" name="consumerId" 
+											class="form-control" placeholder="Consumer Id">
+									</div>
 
-                                            <div class="form-group">
-                                                <label for="propertyType">Property Type</label>
-                                                <input type="text" name="propertyType" path="propertyType"
-                                                    class="form-control" placeholder="Property Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="propertyType"></sf:errors>
+									<div class="form-group">
+										<label for="businessId">Business Id</label> <input
+											type="text" name="businessId"
+											class="form-control" placeholder="Business Id">
+									</div>
 
-                                            <div class="form-group">
-                                                <label for="consumerType">Consumer Type</label>
-                                                <input type="text" name="consumerType" path="consumerType"
-                                                    class="form-control" placeholder="Consumer Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="consumerType"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="assuredSum">Assured Sum</label>
-                                                <input type="text" name="assuredSum" path="assuredSum"
-                                                    class="form-control" placeholder="Assured Sum">
-                                            </div>
-                                            <sf:errors style="color:red" path="assuredSum"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="tenure">Tenure</label>
-                                                <input type="text" name="tenure" path="tenure" class="form-control"
-                                                    placeholder="Tenure">
-                                            </div>
-                                            <sf:errors style="color:red" path="tenure"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="businessValue"> Business Value</label>
-                                                <input type="number" name="businessValue" path="businessValue" min="0"
-                                                    class="form-control" placeholder="Business Value">
-                                            </div>
-                                            <sf:errors style="color:red" path="businessValue"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="propertyValue"> Property Value</label>
-                                                <input type="number" name="propertyValue" path="propertyValue" min="0"
-                                                    class="form-control" placeholder="Property Value">
-                                            </div>
-                                            <sf:errors style="color:red" path="propertyValue"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="baseLocation">Base Location</label>
-                                                <input type="text" name="baseLocation" path="baseLocation"
-                                                    class="form-control" placeholder="Base Location">
-                                            </div>
-                                            <sf:errors style="color:red" path="baseLocation"></sf:errors>
-
-                                            <div class="form-group">
-                                                <label for="type">Type</label>
-                                                <input type="text" name="type" path="type" class="form-control"
-                                                    placeholder="Type">
-                                            </div>
-                                            <sf:errors style="color:red" path="type"></sf:errors>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save Policy</button>
-                                        </div>
-                                    </form>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save
+										Policy</button>
+								</div>
+							</form>
                                 </div>
                             </div>
                         </div>

@@ -1,3 +1,6 @@
+<%@page import="com.imo.ui.modal.PropertyDetails"%>
+<%@page import="com.imo.ui.modal.BusinessDetails"%>
+<%@page import="com.imo.ui.modal.ConsumerDetails"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -16,7 +19,7 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
 <!-- Integrated bootstrap css style  -->
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap.css">
 <!-- Integrating font awesome icons  -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -25,7 +28,13 @@
 <!-- Integrating google material icons  -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link href="css/styles.css" rel="stylesheet" />
+<link href="/css/styles.css" rel="stylesheet" />
+
+<style>
+table {
+	margin-left: 25%;
+}
+</style>
 </head>
 
 <body>
@@ -40,7 +49,7 @@
 					data-toggle="modal" data-target="#createBP">Create
 					Business & Property</button>
 
-				<a href="consumerDetails"
+				<a href="/consumerDetails"
 					class="list-group-item list-group-item-action list-group-item-light p-3">
 					Edit Business & Property </a>
 
@@ -84,6 +93,128 @@
 			<!-- Page content-->
 			<div class="container-fluid">
 
+				<%
+				ConsumerDetails consumer = (ConsumerDetails) request.getAttribute("consumer");
+				%>
+				<div class="display-4 m-4 text-center">Consumer Details</div>
+				<hr>
+				<div class="table-responsive ">
+					<table class="table table-hover w-50 ">
+						<tr>
+							<th class="text-center">CONSUMER</th>
+							<td><a href="/addBusiness/<%=consumer.getId()%>" class="btn btn-success" >Add New Business</a>
+							<button id="update" class="btn btn-info" >Update</button>
+							</td>
+						</tr>
+						<tr>
+							<th>ID</th>
+							<td><%=consumer.getId()%></td>
+						</tr>
+						<tr>
+							<th>Name</th>
+							<td><input name="consumerName" class="form-control" value="<%=consumer.getName() %>" required></td>
+						</tr>
+						<tr>
+							<th>Date Of Birth</th>
+							<td><input name="dateOfBirth" type="date" class="form-control" value="<%=consumer.getDob()%>" required></td>
+						</tr>
+						<tr>
+							<th>PAN Number</th>
+							<td><input name="panDetails" class="form-control" value="<%=consumer.getPanDetails()%>" required></td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td><input name="email" type="email" class="form-control" value="<%=consumer.getEmail()%>" required></td>
+						</tr>
+						<tr>
+							<th>Phone Number</th>
+							<td><input type="tel" name="phone" class="form-control" value="<%=consumer.getPhone()%>" required></td>
+						</tr>
+						<tr>
+							<th>Agent Name</th>
+							<td><%=consumer.getAgentName()%></td>
+						</tr>
+
+						
+						<%
+						for (BusinessDetails bs : consumer.getBusiness()) {
+						%>
+						<tr>
+							<th class="text-center">BUSINESS</th>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<th>Business Category</th>
+							<td><%=bs.getBusinessCategory()%></td>
+						</tr>
+						<tr>
+							<th>Business Type</th>
+							<td><%=bs.getBusinessType()%></td>
+						</tr>
+						<tr>
+							<th>Business Turnover</th>
+							<td><%=bs.getBusinessTurnOver()%></td>
+						</tr>
+						<tr>
+							<th>Capital Investment</th>
+							<td><%=bs.getCapitalInvested()%></td>
+						</tr>
+						<tr>
+							<th>Total Employee</th>
+							<td><%=bs.getTotalEmployees()%></td>
+						</tr>
+						<tr>
+							<th>Business Age</th>
+							<td><%=bs.getBusinessAge()%></td>
+						</tr>
+						<tr>
+							<th class="text-center">PROPERTY</th>
+							<td></td>
+						</tr>
+						<%
+						for (PropertyDetails pr : bs.getProperty()) {
+						%>
+						<tr>
+							<th>Property Type</th>
+							<td><%=pr.getPropertyType()%></td>
+						</tr>
+						<tr>
+							<th>Building Square Feet</th>
+							<td><%=pr.getBuildingSqft()%></td>
+						</tr>
+						<tr>
+							<th>Building Type</th>
+							<td><%=pr.getBuildingType()%></td>
+						</tr>
+						<tr>
+							<th>Building Storeys</th>
+							<td><%=pr.getBuildingStoreys()%></td>
+						</tr>
+						<tr>
+							<th>Building Age</th>
+							<td><%=pr.getBuildingAge()%></td>
+						</tr>
+						<tr>
+							<th>Cost Of The Assets</th>
+							<td><%=pr.getCostOfTheAsset()%></td>
+						</tr>
+						<tr>
+							<th>Useful Life Of The Assets</th>
+							<td><%=pr.getUsefulLifeOfTheAsset()%></td>
+						</tr>
+						<tr>
+							<th>Salvage Value</th>
+							<td><%=pr.getSalvageValue()%></td>
+						</tr>
+						<%
+						}
+						}
+						%>
+						
+					</table>
+				</div>
+
 				<!-- Modals -->
 				<!-- Create Business and Property -->
 				<div class="modal fade" id="createBP" tabindex="-1" role="dialog"
@@ -98,28 +229,28 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form:form action="/add-consumer" modelAttribute="consumerDetails"
-								method="POST">
-			
-								<% 
-								List<String> bussinessCategory =(List) request.getAttribute("bussinessCategory");
-								List<String> bussinessType =(List) request.getAttribute("bussinessType");
-								List<String> propertyType =(List) request.getAttribute("propertyType");
-								List<String> insuranceType =(List) request.getAttribute("insuranceType");
-								List<String> buildingType =(List) request.getAttribute("buildingType");
-								
-								
-								String msg = (String)request.getAttribute("msg");
-								
-								if(msg!=null){
-								
+							<form:form action="/add-consumer"
+								modelAttribute="consumerDetails" method="POST">
+
+								<%
+								List<String> bussinessCategory = (List) request.getAttribute("bussinessCategory");
+								List<String> bussinessType = (List) request.getAttribute("bussinessType");
+								List<String> propertyType = (List) request.getAttribute("propertyType");
+								List<String> insuranceType = (List) request.getAttribute("insuranceType");
+								List<String> buildingType = (List) request.getAttribute("buildingType");
+
+								String msg = (String) request.getAttribute("msg");
+
+								if (msg != null) {
 								%>
-								<script>alert("<%=msg%>");</script>
-								<% 
-								}	
+								<script>alert("<%=msg%>
+									");
+								</script>
+								<%
+								}
 								%>
-								
-								
+
+
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="consumerName">Consumer Name</label> <input
@@ -141,14 +272,14 @@
 											placeholder="XXXXXXX" required>
 									</div>
 									<sf:errors style="color:red" path="panDetails"></sf:errors>
-										
+
 									<div class="form-group">
 										<label for="phone">Phone No.</label> <input type="tel"
-											name="phone" class="form-control"
-											placeholder="phone no" required>
+											name="phone" class="form-control" placeholder="phone no"
+											required>
 									</div>
-									
-									
+
+
 									<div class="form-group">
 										<label for="email">Email</label> <input type="email"
 											name="email" path="email" class="form-control"
@@ -164,23 +295,29 @@
 									<sf:errors style="color:red" path="agentName"></sf:errors>
 
 									<div class="form-group">
-										<label for="businessCategory">Business Category</label> 
-										<select
-											 name="businessCategory" class="form-control" >
-											 <% for(String cc : bussinessCategory){ %>
-											 <option value="<%=cc%>"><%=cc%></option>
-											 <%} %>
-											 </select>
+										<label for="businessCategory">Business Category</label> <select
+											name="businessCategory" class="form-control">
+											<%
+											for (String cc : bussinessCategory) {
+											%>
+											<option value="<%=cc%>"><%=cc%></option>
+											<%
+											}
+											%>
+										</select>
 									</div>
-									
+
 									<div class="form-group">
-										<label for="businessType">Business Type</label> 
-										<select
-											 name="businessType" class="form-control" >
-											 <% for(String cc : bussinessType){ %>
-											 <option value="<%=cc%>"><%=cc%></option>
-											 <%} %>
-											 </select>
+										<label for="businessType">Business Type</label> <select
+											name="businessType" class="form-control">
+											<%
+											for (String cc : bussinessType) {
+											%>
+											<option value="<%=cc%>"><%=cc%></option>
+											<%
+											}
+											%>
+										</select>
 									</div>
 									<sf:errors style="color:red" path="businessType"></sf:errors>
 
@@ -216,31 +353,38 @@
 									<sf:errors style="color:red" path="businessAge"></sf:errors>
 
 									<div class="form-group">
-										<label for="propertyType">Property Type</label> 
-										<select
-											 name="propertyType" class="form-control" >
-											 <% for(String cc : propertyType){ %>
-											 <option value="<%=cc%>"><%=cc%></option>
-											 <%} %>
-											 </select>
+										<label for="propertyType">Property Type</label> <select
+											name="propertyType" class="form-control">
+											<%
+											for (String cc : propertyType) {
+											%>
+											<option value="<%=cc%>"><%=cc%></option>
+											<%
+											}
+											%>
+										</select>
 									</div>
 									<sf:errors style="color:red" path="propertyType"></sf:errors>
 
 									<div class="form-group">
 										<label for="buildingsqft">Building Square Feet</label> <input
 											type="text" name="buildingsqft" path="buildingsqft"
-											class="form-control" placeholder="Building Square Feet" required>
+											class="form-control" placeholder="Building Square Feet"
+											required>
 									</div>
 									<sf:errors style="color:red" path="buildingsqft"></sf:errors>
 
 									<div class="form-group">
-										<label for="buildingType">Building Type</label> 
-										<select
-											 name="buildingType" class="form-control" >
-											 <% for(String cc : buildingType){ %>
-											 <option value="<%=cc%>"><%=cc%></option>
-											 <%} %>
-											 </select>
+										<label for="buildingType">Building Type</label> <select
+											name="buildingType" class="form-control">
+											<%
+											for (String cc : buildingType) {
+											%>
+											<option value="<%=cc%>"><%=cc%></option>
+											<%
+											}
+											%>
+										</select>
 									</div>
 									<sf:errors style="color:red" path="buildingType"></sf:errors>
 
@@ -268,9 +412,9 @@
 
 									<div class="form-group">
 										<label for="usefullLifeoftheasset">Useful Life Of The
-											Assets</label> <input type="number" min="0"
-											name="lifeOfAsset" path="usefullLifeoftheasset"
-											class="form-control" placeholder="Useful Life Of The Assets" required>
+											Assets</label> <input type="number" min="0" name="lifeOfAsset"
+											path="usefullLifeoftheasset" class="form-control"
+											placeholder="Useful Life Of The Assets" required>
 									</div>
 									<sf:errors style="color:red" path="usefullLifeoftheasset"></sf:errors>
 
@@ -326,7 +470,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Create
+									<button type="submit" class="btn btn-primary">Save
 										Policy</button>
 								</div>
 							</form>
@@ -336,45 +480,38 @@
 				<!-- create policy ends -->
 
 				<!-- Issue policy Modal -->
-				<div class="modal fade" id="issuePolicy" tabindex="-1"
-					role="dialog" aria-labelledby="issuePolicyLabel"
-					aria-hidden="true">
+				<div class="modal fade" id="issuePolicy" tabindex="-1" role="dialog"
+					aria-labelledby="issuePolicyLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="issuePolicyLabel">Issue
-									Policy</h5>
+								<h5 class="modal-title" id="issuePolicyLabel">Issue Policy</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="/issue-policy" modelAttribute="detail"
-								method="POST">
+							<form action="#" modelAttribute="issuePolicy" method="POST">
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="consumerId">Consumer Id</label> <input
-											type="text" name="consumerId" 
+											type="number" name="consumerId" path="consumerId" min="0"
 											class="form-control" placeholder="Consumer Id">
 									</div>
-
-									<div class="form-group">
-										<label for="businessId">Business Id</label> <input
-											type="text" name="businessId"
-											class="form-control" placeholder="Business Id">
-									</div>
+									<sf:errors style="color:red" path="consumerId"></sf:errors>
+								</div>
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Issue
+									<button type="submit" class="btn btn-primary">Save
 										Policy</button>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-				<!-- Issue policy ends -->
+				<!-- create policy ends -->
 
 			</div>
 		</div>
@@ -383,10 +520,10 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script>
-	<script src="js/jquery-3.6.0.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/popper.js"></script>
+	<script src="/js/scripts.js"></script>
+	<script src="/js/jquery-3.6.0.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/popper.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
 		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -395,6 +532,13 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
 		integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
 		crossorigin="anonymous"></script>
+		
+	<script>
+	
+		
+	
+	</script>	
+		
 </body>
 
 </html>

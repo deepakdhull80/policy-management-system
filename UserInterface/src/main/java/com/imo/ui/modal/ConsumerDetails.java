@@ -17,21 +17,22 @@ public class ConsumerDetails {
 
 	private String dob;
 
-	private String pandetails;
+	private String panDetails;
 
 	private String email;
 
 	private String phone;
 
-	private String agentname;
+	private String agentName;
 
 	private List<BusinessDetails> business;
 
 	@Override
 	public String toString() {
-		return "ConsumerDetails [id=" + id + ", name=" + name + ", dob=" + dob + ", pandetails=" + pandetails
-				+ ", email=" + email + ", phone=" + phone + ", agentname=" + agentname + ", business=" + business + "]";
+		return "ConsumerDetails [id=" + id + ", name=" + name + ", dob=" + dob + ", panDetails=" + panDetails
+				+ ", email=" + email + ", phone=" + phone + ", agentName=" + agentName + ", business=" + business + "]";
 	}
+
 	
 	
 	

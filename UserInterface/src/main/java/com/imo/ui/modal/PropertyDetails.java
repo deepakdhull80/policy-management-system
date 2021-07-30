@@ -1,5 +1,7 @@
 package com.imo.ui.modal;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,31 +15,35 @@ public class PropertyDetails {
 
 	private Long id;
 	
-	private String propertytype;
+	private String propertyType;
 
-	private String buildingsqft;
+	private String buildingSqft;
 
-	private String buildingtype;
+	private String buildingType;
 
-	private String buildingstoreys;
+	private String buildingStoreys;
 
-	private Long buildingage;
+	private Long buildingAge;
 
-	private Long propertyvalue;
+	private Long propertyValue;
 	
-	private Long costoftheasset;
+	private Long costOfTheAsset;
 	
-	private Long usefullifeoftheAsset;
+	private Long usefulLifeOfTheAsset;
 
-	private Long salvagevalue;
+	private Long salvageValue;
+	
+	ConsumerPolicy consumerPolicy;
 
 	@Override
 	public String toString() {
-		return "PropertyDetails [id=" + id + ", propertytype=" + propertytype + ", buildingsqft=" + buildingsqft
-				+ ", buildingtype=" + buildingtype + ", buildingstoreys=" + buildingstoreys + ", buildingage="
-				+ buildingage + ", propertyvalue=" + propertyvalue + ", costoftheasset=" + costoftheasset
-				+ ", usefullifeoftheAsset=" + usefullifeoftheAsset + ", salvagevalue=" + salvagevalue + "]";
+		return "PropertyDetails [id=" + id + ", propertyType=" + propertyType + ", buildingSqft=" + buildingSqft
+				+ ", buildingType=" + buildingType + ", buildingStoreys=" + buildingStoreys + ", buildingAge="
+				+ buildingAge + ", propertyValue=" + propertyValue + ", costOfTheAsset=" + costOfTheAsset
+				+ ", usefulLifeOfTheAsset=" + usefulLifeOfTheAsset + ", salvageValue=" + salvageValue + "]";
 	}
+
+	
 	
 	
 	

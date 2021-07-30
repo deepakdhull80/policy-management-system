@@ -12,7 +12,7 @@ public interface PolicyService {
 
 	Boolean checkPolicy(ConsumerDetails consumerDetails) throws Exception;
 
-	ConsumerDetails savePolicy(ConsumerDetails consumerDetails);
+	ConsumerDetails savePolicy(ConsumerDetails consumerDetails) throws PolicyNotFoundException;
 
 //	PolicyMaster savePolicy(long cId, long bId);
 	public PolicyMaster savePolicyMaster(PolicyMaster policyMaster);

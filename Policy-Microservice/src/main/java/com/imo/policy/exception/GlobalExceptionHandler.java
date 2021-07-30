@@ -26,8 +26,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(PolicyNotFoundException.class)
 	public ResponseEntity<ExceptionDetails> handleConsumerNotFoundException(PolicyNotFoundException ex){
-		ExceptionDetails exceptionDetail = new ExceptionDetails(LocalDateTime.now(), HttpStatus.NOT_FOUND, ex.getMessage());
-		return new ResponseEntity<>(exceptionDetail, HttpStatus.NOT_FOUND);
+		ExceptionDetails exceptionDetail = new ExceptionDetails(LocalDateTime.now(), HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
+		return new ResponseEntity<>(exceptionDetail, HttpStatus.NOT_ACCEPTABLE);
 	}
 	
 	@ExceptionHandler(NotEligibleException.class)

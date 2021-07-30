@@ -13,7 +13,5 @@ import com.imo.policy.model.ConsumerDetails;
 public interface ConsumerClient {
 
 	@GetMapping("/getconsumers/{cid}")
-	public ConsumerDetails viewConsumer(
-			@PathVariable Long cid)
-			throws ConsumerNotFoundException, AuthorizationException;
+	public ConsumerDetails viewConsumer(@PathVariable Long cid)throws ConsumerNotFoundException, AuthorizationException;
 }

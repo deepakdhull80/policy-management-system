@@ -1,7 +1,5 @@
 package com.imo.policy.feign;
 
-import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface QuotesClient {
 
 	@GetMapping("/getQuotesForPolicy/{businessValue}/{propertyValue}/{propertyType}")
-	public String getQuotesForPolicy(@Valid @PathVariable Long businessValue, @PathVariable Long propertyValue,
-			@PathVariable String propertyType);
+	public String getQuotesForPolicy(@PathVariable("businessValue") Long businessValue, @PathVariable("propertyValue") Long propertyValue,
+			@PathVariable("propertyType") String propertyType);
 	
 }

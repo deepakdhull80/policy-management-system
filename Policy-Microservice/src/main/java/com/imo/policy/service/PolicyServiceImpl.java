@@ -55,18 +55,29 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails) {
+	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails) throws PolicyNotFoundException {
 		// TODO Auto-generated method stub
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
+		
 		long cId = consumerDetails.getId();
+		
 		for (BusinessDetails b : businessDetails) {
+			
 			List<PropertyDetails> propertyDetails = b.getProperty();
+			
 			for (PropertyDetails p : propertyDetails) {
 				PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
 						b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
+				
+				if(policyMaster==null) {
+					throw new PolicyNotFoundException("Not Valid Policy");
+				}
+				
 				String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
 						p.getPropertyType());
+
 				long bId = b.getId();
+
 				ConsumerPolicy consumerPolicy = new ConsumerPolicy();
 				consumerPolicy.setAcceptedQuote(quotes);
 				consumerPolicy.setPid(policyMaster.getId());
@@ -100,19 +111,23 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public List<ConsumerPolicy> viewPolicy(Long cid, Long pid)
+	public List<ConsumerPolicy> viewPolicy(Long cid, Long bid)
 			throws ConsumerNotFoundException, PolicyNotFoundException {
-		// TODO Auto-generated method stub
+
 		ConsumerDetails con = consumerRepository.findById(cid)
 				.orElseThrow(() -> new ConsumerNotFoundException("Consumer Not Found"));
+
 		List<ConsumerPolicy> list = new ArrayList<>();
 		List<BusinessDetails> businessDetails = con.getBusiness();
+
 		for (BusinessDetails b : businessDetails) {
 			List<PropertyDetails> propertyDetails = b.getProperty();
 			for (PropertyDetails p : propertyDetails) {
-				ConsumerPolicy consumerPolicy = consumerPolicyRepository.findById(pid)
-						.orElseThrow(() -> new PolicyNotFoundException("Policy Not Found"));
-				list.add(consumerPolicy);
+				List<ConsumerPolicy> consumerPolicy = consumerPolicyRepository.findByBusinessId(bid);
+				if(consumerPolicy.isEmpty()) {
+					throw new PolicyNotFoundException("Policy Not Found.");
+				}
+				list.addAll(consumerPolicy);
 			}
 		}
 		return list;
