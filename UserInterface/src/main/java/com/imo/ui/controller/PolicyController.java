@@ -232,7 +232,7 @@ public class PolicyController {
 		}
 		if(response) {
 			view = new RedirectView("/policyDetails");
-			attr.addFlashAttribute("msg", "Policy created consumer id :"+detail.getConsumerId()+" and business id :"+detail.getBusinessId());
+			attr.addFlashAttribute("success-msg", "Policy created consumer id :"+detail.getConsumerId()+" and business id :"+detail.getBusinessId());
 		}else {
 			view = new RedirectView("/policyDetails");
 			attr.addFlashAttribute("msg", "Invalid Business Id");
@@ -287,7 +287,7 @@ public class PolicyController {
 		}
 		if(response) {
 			view = new RedirectView("/policyDetails");
-			attr.addFlashAttribute("msg", "Policy Issued Policy Unique id :"+uniqueId);
+			attr.addFlashAttribute("success-msg", "Policy Issued Policy Unique id :"+uniqueId);
 		}else {
 			view = new RedirectView("/policyDetails");
 			attr.addFlashAttribute("msg", "Invalid Business Id");
@@ -324,7 +324,7 @@ public class PolicyController {
 		
 		if(response) {
 			view = new RedirectView("/");
-			attr.addFlashAttribute("msg", "Policy Registered");
+			attr.addFlashAttribute("success-msg", "Policy Registered");
 		}else {
 			view = new RedirectView("/");
 			attr.addFlashAttribute("msg", "Unable To Register Policy");

@@ -101,7 +101,7 @@ public class ConsumerController {
 			return view;
 		}
 		
-		attr.addFlashAttribute("msg", "Added Successfully");
+		attr.addFlashAttribute("success-msg", "Added Successfully");
 		
 		return view;
 	}
@@ -200,9 +200,6 @@ public class ConsumerController {
 		
 		ConsumerDetails consumer = consumerService.updateConsumer(consumerDetails, token);
 		
-		System.out.println("---------------------------------------------------");
-		System.out.println(consumer);
-		System.out.println("---------------------------------------------------");
 		
 		view = new RedirectView("/consumerDetails", true);
 		if (consumer == null) {
@@ -211,7 +208,7 @@ public class ConsumerController {
 			return view;
 		}
 		
-		attr.addFlashAttribute("msg", "Updated Successfully");
+		attr.addFlashAttribute("success-msg", "Updated Successfully");
 		
 		return view;
 	}

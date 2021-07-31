@@ -66,7 +66,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 		Double range_diff = Range_max - Range_min;
 		Double sat = ((x_ratio - x_min) / (x_max - x_min));
 		Double businessvalue = (range_diff * sat);
-		return Math.round(businessvalue);
+		return Math.abs( Math.round(businessvalue))%10;
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
 		Double propertyvalue = range_diff * sat;
 
-		return (long) Math.abs(Math.round(propertyvalue));
+		return (long) Math.abs(Math.round(propertyvalue))%10;
 	}
 
 	@Override

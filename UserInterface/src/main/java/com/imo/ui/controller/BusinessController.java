@@ -95,7 +95,7 @@ public class BusinessController {
 		boolean res = businessSerivce.addBusiness(businessDetails,token);
 		
 		if(res) {
-			attr.addFlashAttribute("msg", "Successfully added");
+			attr.addFlashAttribute("success-msg", "Successfully added");
 		}else {
 			attr.addFlashAttribute("msg", "Not Eligible");
 		}

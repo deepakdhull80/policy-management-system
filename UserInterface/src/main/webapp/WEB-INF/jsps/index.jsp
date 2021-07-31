@@ -140,9 +140,46 @@
 
 
 						
-						<button type="submit" class="btn btn-success">Submit</button>
+						<button type="submit" class="btn btn-success">Create Policy</button>
 					</form>
+
+
+					<!-- create quotes -->
+					<hr>
+					<h2 class="display-3">Create Quote</h2>
+					<form method="POST" modelAttribute="quoteMaster" action="/add-quote-master" class="mb-5">
+						<div class="row">
+						<div class="form-group col-4">
+							<label>Business Value</label>
+							<input type="number" class="form-control" name="businessValue" placeholder="Business Value" required>
+						</div>
+						<div class="form-group col-4">
+							<label>Property Value</label>
+							<input type="number" class="form-control" name="propertyValue" placeholder="Property Value" required>
+						</div>
+						</div>
+
+						<div class="row">
+						<div class="form-group col-4">
+							<label>Property Type</label>
+							<input class="form-control" name="propertyType" placeholder="Property Type" required>
+						</div>
+						<div class="form-group col-4">
+							<label>Quotes</label>
+							<input class="form-control" name="quotes" placeholder="Quotes" required>
+						</div>
+						</div>
+
+						
+						<button type="submit" class="btn btn-success">Create Quote</button>
+					</form>
+
+					<!-- end Create Quotes -->
 				</div>
+
+				<!-- End Business Master Register -->
+
+
 
 				<!-- Modals -->
 				<!-- Create Business and Property -->

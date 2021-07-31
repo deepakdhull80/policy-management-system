@@ -5,7 +5,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +43,20 @@ public class QuotesController {
         } 
 		log.info("End");
 		return quotes; 
+	}
+	
+	@PostMapping("/addQuote")
+	public boolean addQuote(@Valid @RequestBody QuotesMaster quotesMaster) {
+		
+		if(quotesMaster == null || quotesMaster.getBusinessValue()==null || quotesMaster.getPropertyType()==null ||
+				quotesMaster.getPropertyValue()==null || quotesMaster.getQuotes()==null
+				) {
+			return false;
+		}
+		
+		quotesMasterRepository.save(quotesMaster);
+		
+		return true;
 	}
 	
 

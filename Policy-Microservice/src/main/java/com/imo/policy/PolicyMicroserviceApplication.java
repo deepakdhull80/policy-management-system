@@ -32,7 +32,7 @@ public class PolicyMicroserviceApplication implements ApplicationRunner{
 		master.setConsumerType("Personal");
 		master.setAssuredSum("150, 00000 INR");
 		master.setTenure("123");
-		master.setBusinessValue(12L);
+		master.setBusinessValue(3L);
 		master.setBaseLocation("1213131");
 		master.setType("Personal");
 		master.setPropertyValue(0L);
@@ -44,7 +44,7 @@ public class PolicyMicroserviceApplication implements ApplicationRunner{
 		master.setConsumerType("Personal");
 		master.setAssuredSum("150, 00000 INR");
 		master.setTenure("123");
-		master.setBusinessValue(-3L);
+		master.setBusinessValue(3L);
 		master.setBaseLocation("1213131");
 		master.setType("Personal");
 		master.setPropertyValue(20L);
