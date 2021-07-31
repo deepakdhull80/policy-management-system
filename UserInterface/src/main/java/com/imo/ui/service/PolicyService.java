@@ -17,7 +17,7 @@ public interface PolicyService {
 
 	boolean createPolicy(ConsumerPolicyRequest detail, String token) throws ConsumerNotFoundException, PolicyNotFoundException;
 
-	boolean issuePolicy(ConsumerPolicyRequest detail, String token) throws ConsumerNotFoundException, PolicyNotFoundException;
+	boolean issuePolicy(long uniqueId, String token) throws ConsumerNotFoundException, PolicyNotFoundException;
 
 	boolean addPolicyMaster(PolicyMaster policyMaster, String token);
 	

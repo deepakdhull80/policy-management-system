@@ -311,16 +311,11 @@
 								<form action="/issue-policy" modelAttribute="detail"
 										method="POST">
 										<div class="modal-body">
+											
 											<div class="form-group">
-												<label for="consumerId">Consumer Id</label> <input
-													type="number" name="consumerId" 
-													class="form-control" placeholder="Consumer Id">
-											</div>
-
-											<div class="form-group">
-												<label for="businessId">Business Id</label> <input
-													type="number" name="businessId"
-													class="form-control" placeholder="Business Id">
+												<label for="businessId">Policy Unique Id</label> <input
+													type="number" name="uniqueId"
+													class="form-control" placeholder="Policy Unique Id">
 											</div>
 
 										<div class="modal-footer">

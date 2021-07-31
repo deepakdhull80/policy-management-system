@@ -50,11 +50,10 @@ public class PolicyController {
 }
 	
 	@PostMapping("/issuePolicy")
-	public ResponseEntity<ConsumerPolicy> issuePolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws AuthorizationException{
-			Long cId = consumerPolicyRequest.getConsumerId();
-			Long bId = consumerPolicyRequest.getBusinessId();
+	public ResponseEntity<ConsumerPolicy> issuePolicy(@RequestBody long uniqueId) throws AuthorizationException, PolicyNotFoundException{
 			
-			ConsumerPolicy con = policyService.issuePolicy(cId, bId);
+			
+			ConsumerPolicy con = policyService.issuePolicy(uniqueId);
 			return new ResponseEntity<ConsumerPolicy>(con,HttpStatus.CREATED);
 	}
 

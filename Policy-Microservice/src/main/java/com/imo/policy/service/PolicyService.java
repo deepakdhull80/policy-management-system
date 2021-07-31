@@ -20,6 +20,6 @@ public interface PolicyService {
 
 	List<ConsumerPolicy> viewPolicy(Long cid, Long pid) throws ConsumerNotFoundException,PolicyNotFoundException;
 
-	ConsumerPolicy issuePolicy(long cId, long bId);
+	ConsumerPolicy issuePolicy(long cId) throws PolicyNotFoundException;
 
 }

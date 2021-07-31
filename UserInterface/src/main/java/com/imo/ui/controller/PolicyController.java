@@ -250,7 +250,7 @@ public class PolicyController {
 	
 	
 	@PostMapping("/issue-policy")
-	public RedirectView issuePolicyForConsumer(@ModelAttribute ConsumerPolicyRequest detail, RedirectAttributes attr,
+	public RedirectView issuePolicyForConsumer(@ModelAttribute("uniqueId") long uniqueId, RedirectAttributes attr,
 			HttpServletRequest request) throws JsonProcessingException {
 
 		String token = (String) request.getSession().getAttribute("token");
@@ -268,7 +268,7 @@ public class PolicyController {
 		}
 		boolean response=true;
 		try {
-			response = policyService.issuePolicy(detail,token);
+			response = policyService.issuePolicy(uniqueId,token);
 		} catch (ConsumerNotFoundException e) {
 			e.printStackTrace();
 			view = new RedirectView("/policyDetails");
@@ -282,7 +282,7 @@ public class PolicyController {
 		}
 		if(response) {
 			view = new RedirectView("/policyDetails");
-			attr.addFlashAttribute("msg", "Policy Issued consumer id :"+detail.getConsumerId()+" and business id :"+detail.getBusinessId());
+			attr.addFlashAttribute("msg", "Policy Issued Policy Unique id :"+uniqueId);
 		}else {
 			view = new RedirectView("/policyDetails");
 			attr.addFlashAttribute("msg", "Invalid Business Id");

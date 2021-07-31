@@ -95,13 +95,13 @@ public class PolicyServiceImpl implements PolicyService{
 
 
 	@Override
-	public boolean issuePolicy(ConsumerPolicyRequest detail, String token) throws ConsumerNotFoundException, PolicyNotFoundException {
+	public boolean issuePolicy(long uniqueId, String token) throws ConsumerNotFoundException, PolicyNotFoundException {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", token);
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		HttpEntity<ConsumerPolicyRequest> requestData = new HttpEntity<ConsumerPolicyRequest>(detail,headers);
+		HttpEntity<Long> requestData = new HttpEntity<Long>(uniqueId,headers);
 		
 		ResponseEntity<ConsumerPolicy> response=null;
 		
@@ -112,7 +112,7 @@ public class PolicyServiceImpl implements PolicyService{
 			if(response.getStatusCode()==HttpStatus.NOT_FOUND) {
 				return false;
 			}else if(response.getStatusCode()==HttpStatus.NOT_ACCEPTABLE) {
-				throw new PolicyNotFoundException("Master Policy Not Found");
+				throw new PolicyNotFoundException("Policy Not Found");
 			}
 			}
 		catch(PolicyNotFoundException e) {
@@ -120,7 +120,7 @@ public class PolicyServiceImpl implements PolicyService{
 		}
 		catch(Exception e) {
 				if(e.getMessage().startsWith("406")) {
-					throw new PolicyNotFoundException("Master Policy Not Found");
+					throw new PolicyNotFoundException("Policy Not Found");
 				}
 				throw new ConsumerNotFoundException("Consumer Not Found");
 			}

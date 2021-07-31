@@ -113,9 +113,9 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ConsumerPolicy issuePolicy(long cId, long bId) {
+	public ConsumerPolicy issuePolicy(long uniqueId) throws PolicyNotFoundException {
 		// TODO Auto-generated method stub
-		ConsumerPolicy consumerPolicy = consumerPolicyRepository.findByConsumerIdAndBusinessId(cId, bId);
+		ConsumerPolicy consumerPolicy = consumerPolicyRepository.findById(uniqueId).orElseThrow(()-> new PolicyNotFoundException("policy not found"));
 		consumerPolicy.setStatus("Issued");
 		consumerPolicyRepository.save(consumerPolicy);
 		return consumerPolicy;
