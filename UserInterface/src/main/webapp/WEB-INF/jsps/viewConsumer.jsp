@@ -48,7 +48,7 @@
 
 										<a href="/consumerDetails"
 											class="list-group-item list-group-item-action list-group-item-light p-3">
-											Edit Business & Property </a>
+											View | Edit Business & Property </a>
 
 										<button type="button"
 											class="list-group-item list-group-item-action list-group-item-light p-3"
@@ -102,6 +102,18 @@
 													</div>
 												</div>
 												<% } %>
+
+												<% String successMsg=(String)request.getAttribute("success-msg"); if (successMsg !=null) { %>
+													<div class="container">
+														<div class="alert alert-success alert-dismissible fade show mt-5 p-3 " role="alert">
+															<%=successMsg %>
+																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+														</div>
+													</div>
+													<% } %>
+
 													<div class="table-responsive ">
 														<table class="table table-hover w-50 ">
 															<tr>
@@ -689,6 +701,7 @@
 																		Create
 																		Policy</h5>
 																</div>
+																<div class="modal-body">
 																<form action="/create-policy" modelAttribute="detail"
 																	method="POST">
 																	<div class="modal-body">
