@@ -164,7 +164,9 @@
 								if(msg!=null){
 								
 								%>
+								
 								<script>alert("<%=msg%>");</script>
+								
 								<% 
 								}	
 								%>

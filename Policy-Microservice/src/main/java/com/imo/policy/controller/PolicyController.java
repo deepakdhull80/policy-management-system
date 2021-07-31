@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.imo.policy.exception.AuthorizationException;
 import com.imo.policy.exception.BusinessIdNotFoundException;
 import com.imo.policy.exception.ConsumerNotFoundException;
+import com.imo.policy.exception.IssuedPolicyException;
 import com.imo.policy.exception.NotEligibleException;
 import com.imo.policy.exception.PolicyNotFoundException;
 import com.imo.policy.feign.AuthClient;
@@ -50,7 +51,7 @@ public class PolicyController {
 }
 	
 	@PostMapping("/issuePolicy")
-	public ResponseEntity<ConsumerPolicy> issuePolicy(@RequestBody long uniqueId) throws AuthorizationException, PolicyNotFoundException{
+	public ResponseEntity<ConsumerPolicy> issuePolicy(@RequestBody long uniqueId) throws AuthorizationException, PolicyNotFoundException, IssuedPolicyException{
 			
 			
 			ConsumerPolicy con = policyService.issuePolicy(uniqueId);

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.imo.ui.exception.ConsumerNotFoundException;
+import com.imo.ui.exception.IssuedPolicyException;
 import com.imo.ui.exception.PolicyNotFoundException;
 import com.imo.ui.modal.BusinessDetails;
 import com.imo.ui.modal.ConsumerDetails;
@@ -95,7 +96,7 @@ public class PolicyServiceImpl implements PolicyService{
 
 
 	@Override
-	public boolean issuePolicy(long uniqueId, String token) throws ConsumerNotFoundException, PolicyNotFoundException {
+	public boolean issuePolicy(long uniqueId, String token) throws ConsumerNotFoundException, PolicyNotFoundException, IssuedPolicyException {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", token);
@@ -113,10 +114,16 @@ public class PolicyServiceImpl implements PolicyService{
 				return false;
 			}else if(response.getStatusCode()==HttpStatus.NOT_ACCEPTABLE) {
 				throw new PolicyNotFoundException("Policy Not Found");
+			}else if(response.getStatusCode()==HttpStatus.NOT_MODIFIED) {
+				throw new IssuedPolicyException("Already Issued");
 			}
+			
 			}
 		catch(PolicyNotFoundException e) {
 			throw new PolicyNotFoundException(e.getMessage());
+		}
+		catch(IssuedPolicyException e) {
+			throw new IssuedPolicyException(e.getMessage());
 		}
 		catch(Exception e) {
 				if(e.getMessage().startsWith("406")) {

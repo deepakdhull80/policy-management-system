@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.imo.ui.exception.ConsumerNotFoundException;
+import com.imo.ui.exception.IssuedPolicyException;
 import com.imo.ui.exception.PolicyNotFoundException;
 import com.imo.ui.modal.ConsumerPolicy;
 import com.imo.ui.modal.ConsumerPolicyRequest;
@@ -278,6 +279,10 @@ public class PolicyController {
 			e.printStackTrace();
 			view = new RedirectView("/policyDetails");
 			attr.addFlashAttribute("msg", "Policy Not Found in Policy Master");
+			return view;
+		} catch(IssuedPolicyException e) {
+			view = new RedirectView("/policyDetails");
+			attr.addFlashAttribute("msg", "Policy Already Issued with unique Id :"+uniqueId);
 			return view;
 		}
 		if(response) {

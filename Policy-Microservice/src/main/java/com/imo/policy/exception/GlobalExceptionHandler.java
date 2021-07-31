@@ -24,6 +24,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(exceptionDetail, HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(IssuedPolicyException.class)
+	public ResponseEntity<ExceptionDetails> handleIssuedPolicyException(IssuedPolicyException ex){
+		ExceptionDetails exceptionDetail = new ExceptionDetails(LocalDateTime.now(), HttpStatus.NOT_MODIFIED, ex.getMessage());
+		return new ResponseEntity<>(exceptionDetail, HttpStatus.NOT_MODIFIED);
+	}
 	
 	@ExceptionHandler(BusinessIdNotFoundException.class)
 	public ResponseEntity<ExceptionDetails> handleBusinessIdNotFoundException(ConsumerNotFoundException ex){

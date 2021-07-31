@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.imo.policy.exception.BusinessIdNotFoundException;
 import com.imo.policy.exception.ConsumerNotFoundException;
+import com.imo.policy.exception.IssuedPolicyException;
 import com.imo.policy.exception.PolicyNotFoundException;
 import com.imo.policy.feign.QuotesClient;
 import com.imo.policy.model.BusinessDetails;
@@ -56,66 +57,72 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails,Long bid) throws PolicyNotFoundException, BusinessIdNotFoundException {
+	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails, Long bid)
+			throws PolicyNotFoundException, BusinessIdNotFoundException {
 		// TODO Auto-generated method stub
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
-		
+
 		long cId = consumerDetails.getId();
 		boolean flag = false;
 		for (BusinessDetails b : businessDetails) {
-			
-			if(b.getId() == bid && flag==false) { 
-				flag=true;
+
+			if (b.getId() == bid && flag == false) {
+				flag = true;
 				List<PropertyDetails> propertyDetails = b.getProperty();
-				
-				for (PropertyDetails p : propertyDetails) {
-					PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
-							b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
-					
-					if(policyMaster==null) {
-						throw new PolicyNotFoundException("Not Valid Policy");
-					}
-					
-					String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
-							p.getPropertyType());
-	
-					long bId = b.getId();
-	
-					ConsumerPolicy consumerPolicy = new ConsumerPolicy();
-					consumerPolicy.setAcceptedQuote(quotes);
-					consumerPolicy.setPid(policyMaster.getId());
-					consumerPolicy.setAssuredSum(policyMaster.getAssuredSum());
-					consumerPolicy.setBaseLocation(policyMaster.getBaseLocation());
-					consumerPolicy.setBusinessValue(policyMaster.getBusinessValue());
-					consumerPolicy.setConsumerType(policyMaster.getConsumerType());
-					consumerPolicy.setPropertyType(policyMaster.getPropertyType());
-					consumerPolicy.setPropertyValue(policyMaster.getPropertyValue());
-					consumerPolicy.setTenure(policyMaster.getTenure());
-					consumerPolicy.setType(policyMaster.getTenure());
-					consumerPolicy.setBusinessId(bId);
-					consumerPolicy.setConsumerId(cId);
-					consumerPolicy.setStatus("Initiated");
-					p.setConsumerPolicy(consumerPolicy);
+
+				PropertyDetails p = propertyDetails.get(0);
+				PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
+						b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
+
+				if (policyMaster == null) {
+					throw new PolicyNotFoundException("Not Valid Policy");
 				}
+
+				String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
+						p.getPropertyType());
+
+				long bId = b.getId();
+
+				ConsumerPolicy consumerPolicy = new ConsumerPolicy();
+				consumerPolicy.setAcceptedQuote(quotes);
+				consumerPolicy.setPid(policyMaster.getId());
+				consumerPolicy.setAssuredSum(policyMaster.getAssuredSum());
+				consumerPolicy.setBaseLocation(policyMaster.getBaseLocation());
+				consumerPolicy.setBusinessValue(policyMaster.getBusinessValue());
+				consumerPolicy.setConsumerType(policyMaster.getConsumerType());
+				consumerPolicy.setPropertyType(policyMaster.getPropertyType());
+				consumerPolicy.setPropertyValue(policyMaster.getPropertyValue());
+				consumerPolicy.setTenure(policyMaster.getTenure());
+				consumerPolicy.setType(policyMaster.getTenure());
+				consumerPolicy.setBusinessId(bId);
+				consumerPolicy.setConsumerId(cId);
+				consumerPolicy.setStatus("Initiated");
+				p.setConsumerPolicy(consumerPolicy);
+
 				b.setProperty(propertyDetails);
 			}
 		}
-		
-		if(!flag) {
-			
+
+		if (!flag) {
+
 			throw new BusinessIdNotFoundException("Business Id Not Found");
-			
+
 		}
-		
+
 		consumerDetails.setBusiness(businessDetails);
 		ConsumerDetails con = consumerRepository.save(consumerDetails);
 		return con;
 	}
 
 	@Override
-	public ConsumerPolicy issuePolicy(long uniqueId) throws PolicyNotFoundException {
+	public ConsumerPolicy issuePolicy(long uniqueId) throws PolicyNotFoundException, IssuedPolicyException {
 		// TODO Auto-generated method stub
-		ConsumerPolicy consumerPolicy = consumerPolicyRepository.findById(uniqueId).orElseThrow(()-> new PolicyNotFoundException("policy not found"));
+		ConsumerPolicy consumerPolicy = consumerPolicyRepository.findById(uniqueId)
+				.orElseThrow(() -> new PolicyNotFoundException("policy not found"));
+		
+		if(consumerPolicy.getStatus().equals("Issued")) {
+			throw new IssuedPolicyException("Policy Already Issued");
+		}
 		consumerPolicy.setStatus("Issued");
 		consumerPolicyRepository.save(consumerPolicy);
 		return consumerPolicy;
@@ -132,13 +139,15 @@ public class PolicyServiceImpl implements PolicyService {
 		List<BusinessDetails> businessDetails = con.getBusiness();
 
 		for (BusinessDetails b : businessDetails) {
-			List<PropertyDetails> propertyDetails = b.getProperty();
-			for (PropertyDetails p : propertyDetails) {
-				List<ConsumerPolicy> consumerPolicy = consumerPolicyRepository.findByBusinessId(bid);
-				if(consumerPolicy.isEmpty()) {
-					throw new PolicyNotFoundException("Policy Not Found.");
-				}
-				list.addAll(consumerPolicy);
+			if (b.getId() == bid) {
+				List<PropertyDetails> propertyDetails = b.getProperty();
+				PropertyDetails p = propertyDetails.get(0);
+					List<ConsumerPolicy> consumerPolicy = consumerPolicyRepository.findByBusinessId(bid);
+					if (consumerPolicy.isEmpty()) {
+						throw new PolicyNotFoundException("Policy Not Found.");
+					}
+					list.addAll(consumerPolicy);
+				
 			}
 		}
 		return list;
