@@ -63,7 +63,7 @@ public class UserInterfaceController {
 			return "redirect:/dashboard";
 		}
 
-		model.addAttribute("msg", "invalid username nad password!!!");
+		model.addAttribute("msg", "invalid username and password!!!");
 
 		return "login";
 	}

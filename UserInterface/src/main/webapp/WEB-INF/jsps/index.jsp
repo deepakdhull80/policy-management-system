@@ -32,8 +32,7 @@
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">Policy
-				Administration</div>
+			<div class="sidebar-heading border-bottom bg-light"><a href="/" class="btn p-2 font-weight-bold">Policy Administration</a></div>
 			<div class="list-group list-group-flush">
 				<button type="button"
 					class="list-group-item list-group-item-action list-group-item-light p-3"
@@ -42,11 +41,11 @@
 
 				<a href="consumerDetails"
 					class="list-group-item list-group-item-action list-group-item-light p-3">
-					Edit Business & Property </a>
+					View | Edit Business & Property</a>
 
 				<button type="button" class="list-group-item list-group-item-action list-group-item-light p-3" 
 				data-toggle="modal" data-target="#exampleModalCenter">
-				Policy
+				Policy Management
 				</button>
 
 				<a href="/policyDetails"
@@ -58,7 +57,7 @@
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
 			<nav
-				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+				class="navbar navbar-expand-lg navbar-light bg-light border-bottom p-3">
 				<div class="container-fluid">
 					<button class="btn btn-primary" id="sidebarToggle">Menu</button>
 					<button class="navbar-toggler" type="button"
@@ -83,6 +82,17 @@
 				
 				<div class="container">
 					<h1 class="display-3">Policy Register</h1>
+					<hr>
+					<% String msg=(String)request.getAttribute("msg"); if (msg !=null) { %>
+						<div class="container">
+							<div class="alert alert-danger alert-dismissible fade show mt-5 p-3 " role="alert">
+								<%=msg %>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+							</div>
+						</div>
+						<% } %>
 					<form method="POST" modelAttribute="policyMaster" action="/add-policy-master">
 						<div class="row">
 						<div class="form-group col-4">
@@ -159,16 +169,6 @@
 								List<String> buildingType =(List) request.getAttribute("buildingType");
 								
 								
-								String msg = (String)request.getAttribute("msg");
-								
-								if(msg!=null){
-								
-								%>
-								
-								<script>alert("<%=msg%>");</script>
-								
-								<% 
-								}	
 								%>
 								
 								

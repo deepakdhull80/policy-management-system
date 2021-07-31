@@ -36,7 +36,7 @@
             <div class="d-flex" id="wrapper">
                 <!-- Sidebar-->
                 <div class="border-end bg-white" id="sidebar-wrapper">
-                    <div class="sidebar-heading border-bottom bg-light"><a href="/" >Policy Administration</a></div>
+                    <div class="sidebar-heading border-bottom bg-light"><a href="/" class="btn btn-light font-weight-bold p-2">Policy Administration</a></div>
                     <div class="list-group list-group-flush">
                         <button type="button" class="list-group-item list-group-item-action list-group-item-light p-3"
                             data-toggle="modal" data-target="#createBP">
@@ -49,7 +49,7 @@
 
                         <button type="button" class="list-group-item list-group-item-action list-group-item-light p-3" 
 						data-toggle="modal" data-target="#exampleModalCenter">
-						Policy
+						Policy Management
 						</button>
 
                         <a href="/policyDetails" class="list-group-item list-group-item-action list-group-item-light p-3">
@@ -60,7 +60,7 @@
                 <!-- Page content wrapper-->
                 <div id="page-content-wrapper">
                     <!-- Top navigation-->
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom p-3">
                         <div class="container-fluid">
                             <button class="btn btn-primary" id="sidebarToggle">Menu</button>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -83,6 +83,17 @@
 
                         <div class="display-4 text-center m-4">Details</div>
                         <hr>
+
+						<% String msg=(String)request.getAttribute("msg"); if (msg !=null) { %>
+							<div class="container">
+								<div class="alert alert-danger alert-dismissible fade show mt-5 p-3 " role="alert">
+									<%=msg %>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+								</div>
+							</div>
+							<% } %>
 
                         <table class="table" style="margin-left:0px;">
                             <thead>
@@ -148,15 +159,6 @@
 								List<String> insuranceType = (List) request.getAttribute("insuranceType");
 								List<String> buildingType = (List) request.getAttribute("buildingType");
 
-								String msg = (String) request.getAttribute("msg");
-
-								if (msg != null) {
-								%>
-								<script>alert("<%=msg%>
-									");
-								</script>
-								<%
-								}
 								%>
 
 

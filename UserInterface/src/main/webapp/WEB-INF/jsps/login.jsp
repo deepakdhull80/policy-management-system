@@ -46,7 +46,7 @@
 	<%
 	if (msg != null) {
 	%>
-	<div class="container w-50">
+	<div class="container">
 		<div class="alert alert-danger alert-dismissible fade show mt-5 p-3 "
 			role="alert">
 			<%=msg %>
