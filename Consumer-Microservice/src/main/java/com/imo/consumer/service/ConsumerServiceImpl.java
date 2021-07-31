@@ -160,14 +160,20 @@ public class ConsumerServiceImpl implements ConsumerService {
 			propertObj.setPropertyValue(propertyValue);
 		}
 		businessDetails.setProperty(propertyDetails);
-
+		
+		Long businessValue = calBusinessValue(businessDetails.getBusinessTurnOver(), businessDetails.getCapitalInvested());
+		
+		businessDetails.setBusinessValue(businessValue);
+		
 		/*
 		 * it should be save through consumer repository, if not then this bussiness is
 		 * not belong to any consumer
 		 * 
 		 * 
 		 */
-
+		
+		
+		
 		Optional<ConsumerDetails> conOptional = consumerRepository.findById(cid);
 		if (conOptional.isEmpty()) {
 			throw new ConsumerNotFoundException("Consumer Not Found");

@@ -36,14 +36,14 @@
             <div class="d-flex" id="wrapper">
                 <!-- Sidebar-->
                 <div class="border-end bg-white" id="sidebar-wrapper">
-                    <div class="sidebar-heading border-bottom bg-light">Policy Administration</div>
+                    <div class="sidebar-heading border-bottom bg-light"><a href="/" >Policy Administration</a></div>
                     <div class="list-group list-group-flush">
                         <button type="button" class="list-group-item list-group-item-action list-group-item-light p-3"
                             data-toggle="modal" data-target="#createBP">
                             Create Business & Property
                         </button>
 
-                        <a href="consumerDetails" class="list-group-item list-group-item-action list-group-item-light p-3">
+                        <a href="/consumerDetails" class="list-group-item list-group-item-action list-group-item-light p-3">
                             Edit Business & Property
                         </a>
 

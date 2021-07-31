@@ -78,6 +78,7 @@ public class BusinessController {
 
 		String user = (String) request.getSession().getAttribute("user");
 		
+		
 		RedirectView view =null;
 		if (token == null || user == null || !loginService.isValid(token)) {
 			view = new RedirectView("/login");

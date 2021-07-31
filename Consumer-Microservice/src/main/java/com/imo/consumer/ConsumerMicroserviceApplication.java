@@ -108,7 +108,9 @@ public class ConsumerMicroserviceApplication implements ApplicationRunner{
 		consumer.setBusiness(bl);
 		if(cService.checkEligibility(consumer))
 		System.out.println(cService.saveConsumer(consumer));
-		
+		else {
+			System.out.println("Not eligible");
+		}
 		
 	}
 

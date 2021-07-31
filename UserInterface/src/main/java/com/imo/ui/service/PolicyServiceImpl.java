@@ -83,6 +83,7 @@ public class PolicyServiceImpl implements PolicyService{
 			throw new PolicyNotFoundException(e.getMessage());
 		}
 		catch(Exception e) {
+				e.printStackTrace();
 				if(e.getMessage().startsWith("406")) {
 					throw new PolicyNotFoundException("Master Policy Not Found");
 				}

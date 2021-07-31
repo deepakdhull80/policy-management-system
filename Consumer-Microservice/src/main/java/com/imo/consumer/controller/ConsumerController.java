@@ -108,7 +108,6 @@ public class ConsumerController {
 
 		ConsumerDetails con = consumerService.findConsumerById(cid);
 		System.out.println("---------------------");
-		System.out.println(con.getBusiness().get(0).getBusinessValue());
 		return con;
 
 	}

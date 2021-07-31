@@ -64,6 +64,7 @@ public class PolicyController {
 
 			Long cid = consumerPolicyRequest.getConsumerId();
 			ConsumerDetails consumerDetails = consumerClient.viewConsumer(cid);
+			System.out.println(consumerDetails);
 			if (!policyService.checkPolicy(consumerDetails)) {
 				throw new NotEligibleException("Not Eligible");
 			}
