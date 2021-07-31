@@ -8,6 +8,7 @@ import com.imo.ui.exception.ConsumerNotFoundException;
 import com.imo.ui.exception.PolicyNotFoundException;
 import com.imo.ui.modal.ConsumerPolicy;
 import com.imo.ui.modal.ConsumerPolicyRequest;
+import com.imo.ui.modal.PolicyMaster;
 
 @Service
 public interface PolicyService {
@@ -17,6 +18,8 @@ public interface PolicyService {
 	boolean createPolicy(ConsumerPolicyRequest detail, String token) throws ConsumerNotFoundException, PolicyNotFoundException;
 
 	boolean issuePolicy(ConsumerPolicyRequest detail, String token) throws ConsumerNotFoundException, PolicyNotFoundException;
+
+	boolean addPolicyMaster(PolicyMaster policyMaster, String token);
 	
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.imo.policy.exception.BusinessIdNotFoundException;
 import com.imo.policy.exception.ConsumerNotFoundException;
 import com.imo.policy.exception.PolicyNotFoundException;
 import com.imo.policy.feign.QuotesClient;
@@ -55,47 +56,57 @@ public class PolicyServiceImpl implements PolicyService {
 	}
 
 	@Override
-	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails) throws PolicyNotFoundException {
+	public ConsumerDetails savePolicy(ConsumerDetails consumerDetails,Long bid) throws PolicyNotFoundException, BusinessIdNotFoundException {
 		// TODO Auto-generated method stub
 		List<BusinessDetails> businessDetails = consumerDetails.getBusiness();
 		
 		long cId = consumerDetails.getId();
-		
+		boolean flag = false;
 		for (BusinessDetails b : businessDetails) {
 			
-			List<PropertyDetails> propertyDetails = b.getProperty();
-			
-			for (PropertyDetails p : propertyDetails) {
-				PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
-						b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
+			if(b.getId() == bid && flag==false) { 
+				flag=true;
+				List<PropertyDetails> propertyDetails = b.getProperty();
 				
-				if(policyMaster==null) {
-					throw new PolicyNotFoundException("Not Valid Policy");
+				for (PropertyDetails p : propertyDetails) {
+					PolicyMaster policyMaster = policyMasterRepository.findByBusinessValueAndPropertyValueAndPropertyType(
+							b.getBusinessValue(), p.getPropertyValue(), p.getPropertyType());
+					
+					if(policyMaster==null) {
+						throw new PolicyNotFoundException("Not Valid Policy");
+					}
+					
+					String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
+							p.getPropertyType());
+	
+					long bId = b.getId();
+	
+					ConsumerPolicy consumerPolicy = new ConsumerPolicy();
+					consumerPolicy.setAcceptedQuote(quotes);
+					consumerPolicy.setPid(policyMaster.getId());
+					consumerPolicy.setAssuredSum(policyMaster.getAssuredSum());
+					consumerPolicy.setBaseLocation(policyMaster.getBaseLocation());
+					consumerPolicy.setBusinessValue(policyMaster.getBusinessValue());
+					consumerPolicy.setConsumerType(policyMaster.getConsumerType());
+					consumerPolicy.setPropertyType(policyMaster.getPropertyType());
+					consumerPolicy.setPropertyValue(policyMaster.getPropertyValue());
+					consumerPolicy.setTenure(policyMaster.getTenure());
+					consumerPolicy.setType(policyMaster.getTenure());
+					consumerPolicy.setBusinessId(bId);
+					consumerPolicy.setConsumerId(cId);
+					consumerPolicy.setStatus("Initiated");
+					p.setConsumerPolicy(consumerPolicy);
 				}
-				
-				String quotes = quotesclient.getQuotesForPolicy(b.getBusinessValue(), p.getPropertyValue(),
-						p.getPropertyType());
-
-				long bId = b.getId();
-
-				ConsumerPolicy consumerPolicy = new ConsumerPolicy();
-				consumerPolicy.setAcceptedQuote(quotes);
-				consumerPolicy.setPid(policyMaster.getId());
-				consumerPolicy.setAssuredSum(policyMaster.getAssuredSum());
-				consumerPolicy.setBaseLocation(policyMaster.getBaseLocation());
-				consumerPolicy.setBusinessValue(policyMaster.getBusinessValue());
-				consumerPolicy.setConsumerType(policyMaster.getConsumerType());
-				consumerPolicy.setPropertyType(policyMaster.getPropertyType());
-				consumerPolicy.setPropertyValue(policyMaster.getPropertyValue());
-				consumerPolicy.setTenure(policyMaster.getTenure());
-				consumerPolicy.setType(policyMaster.getTenure());
-				consumerPolicy.setBusinessId(bId);
-				consumerPolicy.setConsumerId(cId);
-				consumerPolicy.setStatus("Initiated");
-				p.setConsumerPolicy(consumerPolicy);
+				b.setProperty(propertyDetails);
 			}
-			b.setProperty(propertyDetails);
 		}
+		
+		if(!flag) {
+			
+			throw new BusinessIdNotFoundException("Business Id Not Found");
+			
+		}
+		
 		consumerDetails.setBusiness(businessDetails);
 		ConsumerDetails con = consumerRepository.save(consumerDetails);
 		return con;

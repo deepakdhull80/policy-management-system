@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imo.policy.exception.AuthorizationException;
+import com.imo.policy.exception.BusinessIdNotFoundException;
 import com.imo.policy.exception.ConsumerNotFoundException;
 import com.imo.policy.exception.NotEligibleException;
 import com.imo.policy.exception.PolicyNotFoundException;
@@ -50,27 +51,23 @@ public class PolicyController {
 	
 	@PostMapping("/issuePolicy")
 	public ResponseEntity<ConsumerPolicy> issuePolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws AuthorizationException{
-//			PolicyMaster pol = policyService.savePolicy(policyMaster);
 			Long cId = consumerPolicyRequest.getConsumerId();
 			Long bId = consumerPolicyRequest.getBusinessId();
-//			ConsumerPolicy consumerDetails = consumerClient.viewConsumer(cId);
 			
 			ConsumerPolicy con = policyService.issuePolicy(cId, bId);
 			return new ResponseEntity<ConsumerPolicy>(con,HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createPolicy")
-	public ResponseEntity<ConsumerDetails> createPolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws PolicyNotFoundException,Exception {
+	public ResponseEntity<ConsumerDetails> createPolicy(@RequestBody ConsumerPolicyRequest consumerPolicyRequest) throws PolicyNotFoundException,BusinessIdNotFoundException,Exception {
 
 			Long cid = consumerPolicyRequest.getConsumerId();
 			ConsumerDetails consumerDetails = consumerClient.viewConsumer(cid);
-			System.out.println(consumerDetails);
 			if (!policyService.checkPolicy(consumerDetails)) {
 				throw new NotEligibleException("Not Eligible");
 			}
-			ConsumerDetails con = policyService.savePolicy(consumerDetails);
+			ConsumerDetails con = policyService.savePolicy(consumerDetails,consumerPolicyRequest.getBusinessId());
 			return new ResponseEntity<ConsumerDetails>(con,HttpStatus.CREATED);
-//			return con;
 	}
 	
 	@GetMapping("/viewPolicy/{cid}/{pid}")

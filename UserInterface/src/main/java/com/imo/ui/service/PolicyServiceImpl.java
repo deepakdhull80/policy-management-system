@@ -20,6 +20,7 @@ import com.imo.ui.modal.BusinessDetails;
 import com.imo.ui.modal.ConsumerDetails;
 import com.imo.ui.modal.ConsumerPolicy;
 import com.imo.ui.modal.ConsumerPolicyRequest;
+import com.imo.ui.modal.PolicyMaster;
 
 @Service
 public class PolicyServiceImpl implements PolicyService{
@@ -89,7 +90,6 @@ public class PolicyServiceImpl implements PolicyService{
 				}
 				throw new ConsumerNotFoundException("Consumer Not Found");
 			}
-		System.out.println(response.hasBody());
 		return true;
 	}
 
@@ -124,8 +124,38 @@ public class PolicyServiceImpl implements PolicyService{
 				}
 				throw new ConsumerNotFoundException("Consumer Not Found");
 			}
+		return true;
+	}
+
+
+	@Override
+	public boolean addPolicyMaster(PolicyMaster policyMaster, String token) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", token);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<PolicyMaster> requestData = new HttpEntity<PolicyMaster>(policyMaster,headers);
+		
+		ResponseEntity<PolicyMaster> response=null;
+		
+		try {
+			
+			response = template.postForEntity(HOST+SERVICE+"/savePolicyMaster", requestData, PolicyMaster.class);
+			if(response.getStatusCode()==HttpStatus.NOT_FOUND) {
+				return false;
+			}
+		}
+		
+		catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		
 		System.out.println(response.hasBody());
 		return true;
+		
+		
 	}
 
 }

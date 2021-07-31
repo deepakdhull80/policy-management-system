@@ -2,6 +2,7 @@ package com.imo.policy.service;
 
 import java.util.List;
 
+import com.imo.policy.exception.BusinessIdNotFoundException;
 import com.imo.policy.exception.ConsumerNotFoundException;
 import com.imo.policy.exception.PolicyNotFoundException;
 import com.imo.policy.model.ConsumerDetails;
@@ -12,7 +13,7 @@ public interface PolicyService {
 
 	Boolean checkPolicy(ConsumerDetails consumerDetails) throws Exception;
 
-	ConsumerDetails savePolicy(ConsumerDetails consumerDetails) throws PolicyNotFoundException;
+	ConsumerDetails savePolicy(ConsumerDetails consumerDetails, Long long1) throws PolicyNotFoundException, BusinessIdNotFoundException;
 
 //	PolicyMaster savePolicy(long cId, long bId);
 	public PolicyMaster savePolicyMaster(PolicyMaster policyMaster);

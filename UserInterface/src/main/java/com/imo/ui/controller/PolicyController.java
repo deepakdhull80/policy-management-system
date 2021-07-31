@@ -292,6 +292,42 @@ public class PolicyController {
 	}
 	
 	
+	/*
+	 * Add Policy Master
+	 * 
+	 */
+	
+	@PostMapping("/add-policy-master")
+	public RedirectView createPolicyMaster(@ModelAttribute PolicyMaster policyMaster, RedirectAttributes attr,
+			HttpServletRequest request) throws JsonProcessingException {
+
+		String token = (String) request.getSession().getAttribute("token");
+
+		String user = (String) request.getSession().getAttribute("user");
+
+		RedirectView view=null;
+
+		if (token == null || user == null || !loginService.isValid(token)) {
+
+			view = new RedirectView("/login");
+			attr.addFlashAttribute("msg", "Token Expired");
+			return view;
+
+		}
+		boolean response=true;
+		response = policyService.addPolicyMaster(policyMaster,token);
+		
+		if(response) {
+			view = new RedirectView("/");
+			attr.addFlashAttribute("msg", "Policy Registered");
+		}else {
+			view = new RedirectView("/");
+			attr.addFlashAttribute("msg", "Unable To Register Policy");
+		}
+
+		return view;
+	}
+	
 	
 	
 	

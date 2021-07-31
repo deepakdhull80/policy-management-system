@@ -44,15 +44,10 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3">
 					Edit Business & Property </a>
 
-				<button type="button"
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					data-toggle="modal" data-target="#createPolicy">Create
-					Policy</button>
-
-				<button type="button"
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					data-toggle="modal" data-target="#issue">Issue
-					Policy</button>
+				<button type="button" class="list-group-item list-group-item-action list-group-item-light p-3" 
+				data-toggle="modal" data-target="#exampleModalCenter">
+				Policy
+				</button>
 
 				<a href="/policyDetails"
 					class="list-group-item list-group-item-action list-group-item-light p-3">
@@ -323,7 +318,7 @@
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
 									<button type="submit" class="btn btn-primary">Save
-										Policy</button>
+										Consumer</button>
 								</div>
 							</form:form>
 						</div>
@@ -331,87 +326,76 @@
 				</div>
 				<!-- Create Business and Property Ends-->
 
-				<!-- Create Policy Modal -->
-				<div class="modal fade" id="createPolicy" tabindex="-1"
-					role="dialog" aria-labelledby="createPolicyLabel"
-					aria-hidden="true">
-					<div class="modal-dialog" role="document">
+				<!-- Issue policy Modal -->
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Issue Policy</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form action="/issue-policy" modelAttribute="detail"
+										method="POST">
+										<div class="modal-body">
+											<div class="form-group">
+												<label for="consumerId">Consumer Id</label> <input
+													type="number" name="consumerId" 
+													class="form-control" placeholder="Consumer Id">
+											</div>
+
+											<div class="form-group">
+												<label for="businessId">Business Id</label> <input
+													type="number" name="businessId"
+													class="form-control" placeholder="Business Id">
+											</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Issue
+												Policy</button>
+										</div>
+									</form>
+							</div>
+						</div>
+
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="createPolicyLabel">Create
 									Policy</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
 							</div>
 							<form action="/create-policy" modelAttribute="detail"
 								method="POST">
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="consumerId">Consumer Id</label> <input
-											type="text" name="consumerId" 
+											type="number" name="consumerId" 
 											class="form-control" placeholder="Consumer Id">
 									</div>
 
 									<div class="form-group">
 										<label for="businessId">Business Id</label> <input
-											type="text" name="businessId"
+											type="number" name="businessId"
 											class="form-control" placeholder="Business Id">
 									</div>
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Save
+									<button type="submit" class="btn btn-primary">Create
 										Policy</button>
 								</div>
 							</form>
 						</div>
+
 					</div>
 				</div>
-				<!-- create policy ends -->
-
-				<!-- Issue policy Modal -->
-				<div class="modal fade" id="issue" tabindex="-1"
-					role="dialog" aria-labelledby="issuePolicyLabel"
-					aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="issuePolicyLabel">Issue
-									Policy</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<form action="/issue-policy" modelAttribute="detail"
-								method="POST">
-								<div class="modal-body">
-									<div class="form-group">
-										<label for="consumerId">Consumer Id</label> <input
-											type="text" name="consumerId" 
-											class="form-control" placeholder="Consumer Id">
-									</div>
-
-									<div class="form-group">
-										<label for="businessId">Business Id</label> <input
-											type="text" name="businessId"
-											class="form-control" placeholder="Business Id">
-									</div>
-
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Issue
-										Policy</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<!-- create policy ends -->
+				
+				<!-- Issue policy ends -->
 
 			</div>
 		</div>

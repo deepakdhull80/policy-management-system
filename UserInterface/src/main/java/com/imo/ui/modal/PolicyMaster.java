@@ -1,21 +1,18 @@
 package com.imo.ui.modal;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PolicyMaster {
 	
 	private Long id;
 	
-	private String property_type;
 	
-	private String consumer_type;
+	private String propertyType;
+	
+	private String consumerType;
 
-	private String assured_sum;
+	private String assuredSum;
 
 	private String tenure;
 
@@ -23,7 +20,7 @@ public class PolicyMaster {
 	
 	private Long propertyValue;
 	
-	private String base_location;
+	private String baseLocation;
 	
 	private String type;
 
