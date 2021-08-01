@@ -22,7 +22,7 @@ Consumer Module is a Middleware Microservice that performs following operations.
 
 i) Create Consumer Business
   
-  URI dashboard
+  URI : dashboard
   
     name: xyz
     dob: 12/01/2021
@@ -54,7 +54,7 @@ i) Create Consumer Business
 
 ii) Update Consumer Business Property
 
-  URI: editConsumer/1
+  URI : editConsumer/1
 
     Request => cosnsumerId : 1
       
