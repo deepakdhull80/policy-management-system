@@ -22,7 +22,7 @@ Consumer Module is a Middleware Microservice that performs following operations.
 
 i) Create Consumer Business
   
-  URL : http://52.39.75.240:8085/dashboard
+  URI dashboard
   
     name: xyz
     dob: 12/01/2021
@@ -54,7 +54,7 @@ i) Create Consumer Business
 
 ii) Update Consumer Business Property
 
-  URL : http://52.39.75.240:8085/editConsumer/1
+  URI: editConsumer/1
 
     Request => cosnsumerId : 1
       
@@ -89,7 +89,7 @@ ii) Update Consumer Business Property
 
 iii) View Consumer Business Property
 
-  URL :  http://52.39.75.240:8085/viewConsumer/1
+  URI :  viewConsumer/1
   
     Request => cosnsumerId : 1
   
@@ -98,7 +98,7 @@ iii) View Consumer Business Property
   
 iV) Create Business Property 
 
-  URL : http://52.39.75.240:8085/addBusiness/1
+  URI : addBusiness/1
   
       Request => cosnsumerId : 1
   
@@ -124,7 +124,7 @@ Policy Module is a Middleware Microservice that performs the following operation
 
 i) Create Policy
 
-  URL : http://52.39.75.240:8085/createPolicy
+  URI : createPolicy
     
     consumerId : 1
     businessId : 2
@@ -133,7 +133,7 @@ i) Create Policy
 
 ii) View Policy 
 
-  URL : http://52.39.75.240:8085/policyDetails
+  URI : policyDetails
     
     consumerId : 1
     businessId : 2
@@ -142,7 +142,7 @@ ii) View Policy
     
 iii) Issue Policy 
 
-  URL : http://52.39.75.240:8085/issuePolicy
+  URI : issuePolicy
 
     consumerUniqueId : 1
     
@@ -153,7 +153,7 @@ iii) Issue Policy
 
 i) Create Quotes
 
-  URL : http://52.39.75.240:8085/dashboard
+  URI : dashboard
   
      businessValue : 2
      propertyValue : 3
@@ -165,7 +165,7 @@ i) Create Quotes
 ii) Get Quotes 
 Check for Quotes from the Policy Microservice
 
-  URL : http://52.39.75.240:8085/getQuotes/1/2/private
+  URI : getQuotes/1/2/private
    
      Request
          businessValue = 1
