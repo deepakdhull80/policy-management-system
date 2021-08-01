@@ -126,10 +126,10 @@ i) Create Quotes
 
   URL : 
   
-  businessValue : 2
-  propertyValue : 3
-  propertyType : private
-  qoutes : 90,000 INR
+     businessValue : 2
+     propertyValue : 3
+     propertyType : private
+     qoutes : 90,000 INR
 
 ii) Get Quotes 
 
