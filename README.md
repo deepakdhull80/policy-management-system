@@ -56,6 +56,8 @@ ii) Update Consumer Business Property
 
   URL : http://52.39.75.240:8085/editConsumer/1
 
+    Request => cosnsumerId : 1
+      
     name: xyz
     dob: 12/01/2021
     panDetails : 12334345
@@ -89,6 +91,8 @@ iii) View Consumer Business Property
 
   URL :  http://52.39.75.240:8085/viewConsumer/1
   
+    Request => cosnsumerId : 1
+  
     Response => Consumer Details
 
   
@@ -96,6 +100,24 @@ iV) Create Business Property
 
   URL : http://52.39.75.240:8085/addBusiness/1
   
+      Request => cosnsumerId : 1
+  
+      businessCategory : Permissible
+      businessType : Institute
+      businessTurnover : 100000
+      capitalInvestment : 50000
+      totalEmployee : 150
+      businessAge : 10
+      propertyType : private
+      buildingSquareFeet : abc
+      buildingType : Institute
+      buildingStoreys : abc
+      buildingAge : 15
+      costOfTheAssets : 1000
+      usefulLiseOfTheAssets : 200
+      salvageValue : 123
+      
+      Response => Message Either Success or Failure
   
 ## 2. Policy Microservice
 Policy Module is a Middleware Microservice that performs the following operations
@@ -149,4 +171,6 @@ Check for Quotes from the Policy Microservice
          businessValue = 1
          propertyValue = 2
          propertyType = private
+         
+     Response => quotesValue
 
