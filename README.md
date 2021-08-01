@@ -9,7 +9,7 @@ An Web Portal that allows an Agent to do the following operations
 
 ## Agent Login Credentials
 
-   URL : 
+   URL : http://52.39.75.240:8085/
 
      username: agent1
      password: password
@@ -22,7 +22,7 @@ Consumer Module is a Middleware Microservice that performs following operations.
 
 i) Create Consumer Business
   
-  URL : 
+  URL : http://52.39.75.240:8085/dashboard
   
     name: xyz
     dob: 12/01/2021
@@ -54,7 +54,7 @@ i) Create Consumer Business
 
 ii) Update Consumer Business Property
 
-  URL :
+  URL : http://52.39.75.240:8085/editConsumer/1
 
     name: xyz
     dob: 12/01/2021
@@ -82,18 +82,19 @@ ii) Update Consumer Business Property
                    salvageValue : 34543
            ]
      ]
+     
+     Response => Message Either Success or Failure
 
 iii) View Consumer Business Property
 
-  URL :  viewConsumer/1
+  URL :  http://52.39.75.240:8085/viewConsumer/1
   
     Response => Consumer Details
 
   
 iV) Create Business Property 
 
-  URL : addBusiness/1
-  
+  URL : http://52.39.75.240:8085/addBusiness/1
   
   
 ## 2. Policy Microservice
@@ -101,47 +102,51 @@ Policy Module is a Middleware Microservice that performs the following operation
 
 i) Create Policy
 
-  URL : createPolicy
+  URL : http://52.39.75.240:8085/createPolicy
     
     consumerId : 1
     businessId : 2
+    
+    Response => Message Either Success or Failure
 
 ii) View Policy 
 
-  URL : policyDetails
+  URL : http://52.39.75.240:8085/policyDetails
     
     consumerId : 1
     businessId : 2
     
+    Response => Message Either Success or Failure
+    
 iii) Issue Policy 
 
-  URL : issuePolicy
+  URL : http://52.39.75.240:8085/issuePolicy
 
     consumerUniqueId : 1
+    
+    Response => Message Either Success or Failure
 
 ## 3. Qoutes Module
   Quotes Module is a Middleware Microservice that performs the following operations
 
 i) Create Quotes
 
-  URL : 
+  URL : http://52.39.75.240:8085/dashboard
   
      businessValue : 2
      propertyValue : 3
      propertyType : private
      qoutes : 90,000 INR
+     
+     Response => Message Either Success or Failure
 
 ii) Get Quotes 
+Check for Quotes from the Policy Microservice
 
-  URL : 
-  
-  Check for Quotes from the Policy Microservice
-
-
-
-
-
-
-
-
+  URL : http://52.39.75.240:8085/getQuotes/1/2/private
+   
+     Request
+         businessValue = 1
+         propertyValue = 2
+         propertyType = private
 
