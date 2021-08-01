@@ -148,7 +148,7 @@ iii) Issue Policy
     
     Response => Message Either Success or Failure
 
-## 3. Qoutes Module
+## 3. Qoutes Microservice
   Quotes Module is a Middleware Microservice that performs the following operations
 
 i) Create Quotes
