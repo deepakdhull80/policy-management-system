@@ -21,9 +21,11 @@ An Web Portal that allows an Agent to do the following operations
 Consumer Module is a Middleware Microservice that performs following operations.
 
 i) Create Consumer Business
-  
-  URI : dashboard
-  
+  Method: POST
+  URI : 35.84.112.206:8989/consumer-service/consumer
+  Request Header:
+     Authorization: Bearer <valid-token>
+  Request Body:
     name: xyz
     dob: 12/01/2021
     panDetails : 12334345
@@ -54,10 +56,12 @@ i) Create Consumer Business
 
 ii) Update Consumer Business Property
 
-  URI : editConsumer/1
-
-    Request => cosnsumerId : 1
-      
+  Method: PUT
+  URI : 35.84.112.206:8989/consumer-service/consumers/{consumerId}
+  Request Header:
+     Authorization: Bearer <valid-token>
+  Request Body:
+   
     name: xyz
     dob: 12/01/2021
     panDetails : 12334345
@@ -85,22 +89,26 @@ ii) Update Consumer Business Property
            ]
      ]
      
-     Response => Message Either Success or Failure
+     Response => Updated ConsumerDetail Object Or Invalid Request
 
 iii) View Consumer Business Property
 
-  URI :  viewConsumer/1
-  
-    Request => cosnsumerId : 1
+  Method: GET
+  URI : 35.84.112.206:8989/consumer-service/getconsumers/{consumerId}
+  Request Header:
+       Authorization: Bearer <valid-token>
   
     Response => Consumer Details
 
   
 iV) Create Business Property 
 
-  URI : addBusiness/1
+  Method:POST
+  URI : 35.84.112.206:8989/consumer-service/createBusinessProperty/{cid}
+  Request Header:
+      Authorization: Bearer <valid-token>
   
-      Request => cosnsumerId : 1
+  Request Body:
   
       businessCategory : Permissible
       businessType : Institute
@@ -124,53 +132,62 @@ Policy Module is a Middleware Microservice that performs the following operation
 
 i) Create Policy
 
-  URI : createPolicy
+  Method:POST
+  URI : 35.84.112.206:8989/policy-service/createPolicy
+  Request Header:
+      Authorization: Bearer <valid-token>
     
     consumerId : 1
     businessId : 2
     
-    Response => Message Either Success or Failure
+    Response => ConsumerDetails Object
 
 ii) View Policy 
 
-  URI : policyDetails
+  Method:GET
+  URI : 35.84.112.206:8989/policy-service/viewPolicy/{cid}/{pid}
+  Request Header:
+      Authorization: Bearer <valid-token>
     
-    consumerId : 1
-    businessId : 2
-    
-    Response => Message Either Success or Failure
+    Response => ConsumerPolicy Object
     
 iii) Issue Policy 
 
-  URI : issuePolicy
+  Method:GET
+  URI : 35.84.112.206:8989/policy-service/issuePolicy
+  Request Header:
+      Authorization: Bearer <valid-token>
 
-    consumerUniqueId : 1
+    policyUniqueId : 1
     
-    Response => Message Either Success or Failure
+    Response => ConsumerPolicy Object
 
 ## 3. Qoutes Microservice
   Quotes Module is a Middleware Microservice that performs the following operations
 
 i) Create Quotes
 
-  URI : dashboard
-  
-     businessValue : 2
-     propertyValue : 3
-     propertyType : private
-     qoutes : 90,000 INR
+   Method:POST
+   URI : 35.84.112.206:8989/quotes-service/addQuote
+   Request Header:
+      Authorization: Bearer <valid-token>
+   Request Body:
+     {  
+        businessValue : 2,
+        propertyValue : 3,
+        propertyType : private,
+        qoutes : 90,000 INR,
+     }
      
-     Response => Message Either Success or Failure
+   Response => True/False
 
 ii) Get Quotes 
 Check for Quotes from the Policy Microservice
 
-  URI : getQuotes/1/2/private
-   
-     Request
-         businessValue = 1
-         propertyValue = 2
-         propertyType = private
+  Method:POST
+  URI : 35.84.112.206:8989/quotes-service/getQuotesForPolicy/{businessValue}/{propertyValue}/{propertyType}
+  Request Header:
+     Authorization: Bearer <valid-token>
          
-     Response => quotesValue
+  Response => quotesValue
 
