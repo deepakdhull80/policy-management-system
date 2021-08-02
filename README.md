@@ -22,10 +22,15 @@ Consumer Module is a Middleware Microservice that performs following operations.
 
 i) Create Consumer Business
   Method: POST
-  URI : 35.84.112.206:8989/consumer-service/consumer
+  
+      URI : 35.84.112.206:8989/consumer-service/consumer
+  
   Request Header:
+     
      Authorization: Bearer <valid-token>
+  
   Request Body:
+     
     name: xyz
     dob: 12/01/2021
     panDetails : 12334345
@@ -57,9 +62,13 @@ i) Create Consumer Business
 ii) Update Consumer Business Property
 
   Method: PUT
-  URI : 35.84.112.206:8989/consumer-service/consumers/{consumerId}
+  
+      URI : 35.84.112.206:8989/consumer-service/consumers/{consumerId}
+  
   Request Header:
-     Authorization: Bearer <valid-token>
+   
+      Authorization: Bearer <valid-token>
+  
   Request Body:
    
     name: xyz
@@ -89,23 +98,33 @@ ii) Update Consumer Business Property
            ]
      ]
      
-     Response => Updated ConsumerDetail Object Or Invalid Request
+   Response => 
+   
+      Updated ConsumerDetail Object Or Invalid Request
 
 iii) View Consumer Business Property
 
   Method: GET
-  URI : 35.84.112.206:8989/consumer-service/getconsumers/{consumerId}
+  
+      URI : 35.84.112.206:8989/consumer-service/getconsumers/{consumerId}
+  
   Request Header:
+       
        Authorization: Bearer <valid-token>
   
-    Response => Consumer Details
+  Response => 
+      
+      ConsumerDetails
 
   
 iV) Create Business Property 
 
   Method:POST
-  URI : 35.84.112.206:8989/consumer-service/createBusinessProperty/{cid}
+  
+      URI : 35.84.112.206:8989/consumer-service/createBusinessProperty/{cid}
+  
   Request Header:
+      
       Authorization: Bearer <valid-token>
   
   Request Body:
@@ -125,7 +144,9 @@ iV) Create Business Property
       usefulLiseOfTheAssets : 200
       salvageValue : 123
       
-      Response => Message Either Success or Failure
+  Response => 
+  
+      Message Either Success or Failure
   
 ## 2. Policy Microservice
 Policy Module is a Middleware Microservice that performs the following operations
@@ -133,34 +154,54 @@ Policy Module is a Middleware Microservice that performs the following operation
 i) Create Policy
 
   Method:POST
-  URI : 35.84.112.206:8989/policy-service/createPolicy
+  
+      URI : 35.84.112.206:8989/policy-service/createPolicy
+  
   Request Header:
+      
       Authorization: Bearer <valid-token>
     
-    consumerId : 1
-    businessId : 2
+  Request Body:
+       
+       {
+         consumerId : 1,
+         businessId : 2
+       }
     
-    Response => ConsumerDetails Object
+  Response => 
+   
+      ConsumerDetails Object
 
 ii) View Policy 
 
   Method:GET
-  URI : 35.84.112.206:8989/policy-service/viewPolicy/{cid}/{pid}
+  
+      URI : 35.84.112.206:8989/policy-service/viewPolicy/{cid}/{pid}
+  
   Request Header:
+      
       Authorization: Bearer <valid-token>
     
-    Response => ConsumerPolicy Object
+  Response => 
+  
+      ConsumerPolicy Object
     
 iii) Issue Policy 
 
-  Method:GET
-  URI : 35.84.112.206:8989/policy-service/issuePolicy
+  Method:POST
+      
+      URI : 35.84.112.206:8989/policy-service/issuePolicy
+  
   Request Header:
+      
       Authorization: Bearer <valid-token>
-
+  RequestBody:
+  
     policyUniqueId : 1
     
-    Response => ConsumerPolicy Object
+  Response => 
+   
+      ConsumerPolicy Object
 
 ## 3. Qoutes Microservice
   Quotes Module is a Middleware Microservice that performs the following operations
@@ -168,10 +209,15 @@ iii) Issue Policy
 i) Create Quotes
 
    Method:POST
-   URI : 35.84.112.206:8989/quotes-service/addQuote
+   
+      URI : 35.84.112.206:8989/quotes-service/addQuote
+   
    Request Header:
+      
       Authorization: Bearer <valid-token>
+   
    Request Body:
+     
      {  
         businessValue : 2,
         propertyValue : 3,
@@ -185,9 +231,12 @@ ii) Get Quotes
 Check for Quotes from the Policy Microservice
 
   Method:POST
-  URI : 35.84.112.206:8989/quotes-service/getQuotesForPolicy/{businessValue}/{propertyValue}/{propertyType}
-  Request Header:
-     Authorization: Bearer <valid-token>
+  
+      URI : 35.84.112.206:8989/quotes-service/getQuotesForPolicy/{businessValue}/{propertyValue}/{propertyType}
+  
+   Request Header:
+     
+      Authorization: Bearer <valid-token>
          
   Response => quotesValue
 
